@@ -1,0 +1,17 @@
+name = "amigo-da-onca-api"
+main = "src/index.ts"
+compatibility_date = "2026-11-01"
+
+[vars]
+# Origens liberadas no CORS (o site do GitHub Pages). Em dev, sobrescrito pelo .dev.vars.
+ORIGENS = "https://guilhermenstorti.github.io"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "amigo-da-onca"
+# Não coloque o id real aqui: o deploy troca este valor pela secret DATABASE_ID_CLOUDFLARE do GitHub,
+# e os comandos locais de produção (npm run fotos -- --remote, npm run producao) usam a variável de ambiente.
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+# PALAVRA_CHAVE, ADMIN_PASSWORD e TOKEN_SECRET são secrets: vêm das secrets do GitHub pelo workflow de deploy.

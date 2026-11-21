@@ -1,0 +1,5 @@
+# Copie para .dev.vars (que fica fora do git) para rodar a API localmente.
+PALAVRA_CHAVE=onca
+ADMIN_PASSWORD=senha-local-do-admin
+TOKEN_SECRET=segredo-local-qualquer-com-bastante-texto
+ORIGENS=http://localhost:5173,http://127.0.0.1:5173

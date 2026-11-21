@@ -1,0 +1,171 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--noite-950);
+}
+
+html.travado {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--noite-950);
+  color: var(--areia-50);
+  font: 500 var(--fs-corpo) / 1.5 var(--fonte-corpo);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+fieldset {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+h2 {
+  font-size: var(--fs-titulo-2);
+  line-height: 1.15;
+}
+
+h3 {
+  font-size: var(--fs-titulo-3);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ouro-400);
+  outline-offset: 3px;
+  box-shadow: var(--anel-foco);
+}
+
+[tabindex='-1']:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Texto */
+.legenda {
+  font-size: var(--fs-legenda);
+  line-height: 1.4;
+  color: var(--areia-300);
+}
+
+.micro {
+  font-size: var(--fs-micro);
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--areia-500);
+}
+
+.erro {
+  font-size: var(--fs-legenda);
+  font-weight: 500;
+  color: oklch(0.8 0.11 30);
+}
+
+.centro {
+  text-align: center;
+}
+
+.direita {
+  text-align: right;
+}
+
+.linha {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2);
+  flex-wrap: wrap;
+}
+
+.pilha {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-2);
+}
+
+.separado {
+  margin-top: var(--e-6);
+  padding-top: var(--e-6);
+  border-top: 1px solid var(--borda);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<script src="onca-texture.js"></script>
+<style>body{margin:0;background:#0F0D0B;color:#F2EEE8;font-family:'Instrument Sans',sans-serif}*{box-sizing:border-box}a{color:oklch(0.86 0.12 80)}a:hover{color:#F2EEE8}</style>
+</helmet>
+
+<div style="max-width:1120px;margin:0 auto;padding:56px 24px 96px;display:flex;flex-direction:column;gap:72px">
+
+  <header ref="{{ heroRef }}" style="position:relative;overflow:hidden;border-radius:28px;min-height:300px;background-color:#15120E;background-image:{{ texNight }};background-size:256px 256px;display:flex;align-items:flex-end;padding:28px">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,18,14,0),rgba(21,18,14,.85))"></div>
+    <div style="position:relative;display:flex;flex-direction:column;gap:10px;background:rgba(21,18,14,.8);backdrop-filter:blur(12px);border-radius:20px;padding:22px 24px;max-width:620px">
+      <span style="font:400 12px 'JetBrains Mono';letter-spacing:.08em;text-transform:uppercase;color:#A89E92">Design System · v1.0</span>
+      <h1 style="margin:0;font:700 44px/1.08 'Sora'">Amigo da Onça</h1>
+      <p style="margin:0;font-size:15px;line-height:1.55;color:#C9BFB3;text-wrap:pretty">Tokens, pelagem e movimento. Componentes em <a href="Padroes de Interface.dc.html">Padrões de Interface</a>; regras de uso no <a href="Styleguide.md">Styleguide.md</a>.</p>
+    </div>
+  </header>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font:400 12px 'JetBrains Mono';color:#A89E92">01</span>
+      <h2 style="margin:0;font:700 28px/1.1 'Sora'">Cor</h2>
+      <p style="margin:0;font-size:15px;color:#C9BFB3">Escuro quente, um acento dourado. Texto sobre ouro é sempre #161412.</p>
+    </div>
+    <span style="font-size:12px;font-weight:600;color:#C9BFB3">Noite: fundos e superfícies</span>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px">
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:#0F0D0B;border:1px solid rgba(255,255,255,.1)"></div><span style="font-size:13px;font-weight:600">noite-950</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">#0F0D0B · página</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:#15120E;border:1px solid rgba(255,255,255,.1)"></div><span style="font-size:13px;font-weight:600">noite-900</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">#15120E · tela</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:#1C1915;border:1px solid rgba(255,255,255,.08)"></div><span style="font-size:13px;font-weight:600">noite-800</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">#1C1915 · superfície</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:#221E19"></div><span style="font-size:13px;font-weight:600">noite-700</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">#221E19 · campo</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:#2C2721"></div><span style="font-size:13px;font-weight:600">noite-600</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">#2C2721 · pressionado</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:#3A342D"></div><span style="font-size:13px;font-weight:600">noite-500</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">#3A342D · trilha off</span></div>
+    </div>
+    <span style="font-size:12px;font-weight:600;color:#C9BFB3">Areia e ouro: texto e acento</span>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px">
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:#F2EEE8"></div><span style="font-size:13px;font-weight:600">areia-50</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">#F2EEE8 · texto</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:#C9BFB3"></div><span style="font-size:13px;font-weight:600">areia-300</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">#C9BFB3 · secundário</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:#A89E92"></div><span style="font-size:13px;font-weight:600">areia-500</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">#A89E92 · legenda</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:oklch(0.8 0.12 80)"></div><span style="font-size:13px;font-weight:600">ouro-400</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">oklch(.8 .12 80) · acento</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:oklch(0.86 0.12 80)"></div><span style="font-size:13px;font-weight:600">ouro-300</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">oklch(.86 .12 80) · texto acento</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background-color:#E0B260;background-image:linear-gradient(rgba(228,182,100,.86),rgba(228,182,100,.86)),{{ texGold }};background-size:auto,180px 180px"></div><span style="font-size:13px;font-weight:600">ouro-botao</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">#E0B260 + véu .86</span></div>
+    </div>
+    <span style="font-size:12px;font-weight:600;color:#C9BFB3">Pelagem e feedback</span>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px">
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:#C98A3A"></div><span style="font-size:13px;font-weight:600">pelo-base</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">#C98A3A</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:#A8652A"></div><span style="font-size:13px;font-weight:600">pelo-miolo</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">#A8652A</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:#1C120A;border:1px solid rgba(255,255,255,.08)"></div><span style="font-size:13px;font-weight:600">pelo-roseta</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">#1C120A</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:#55412A"></div><span style="font-size:13px;font-weight:600">noturna-roseta</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">#55412A</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:oklch(0.8 0.12 150)"></div><span style="font-size:13px;font-weight:600">sucesso</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">oklch(.8 .12 150)</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:72px;border-radius:14px;background:oklch(0.74 0.13 30)"></div><span style="font-size:13px;font-weight:600">alerta</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">oklch(.74 .13 30)</span></div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font:400 12px 'JetBrains Mono';color:#A89E92">02</span>
+      <h2 style="margin:0;font:700 28px/1.1 'Sora'">Pelagem</h2>
+      <p style="margin:0;font-size:15px;color:#C9BFB3;max-width:640px;text-wrap:pretty">Procedural, tile de 512px sem emenda. Rosetas angulosas com anel quebrado, miolo mais escuro e 1 a 3 pintas internas. Mude a semente para gerar variações da mesma família.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
+      <div style="height:300px;border-radius:24px;background-color:#C98A3A;background-image:{{ texGold }};background-size:256px 256px;transition:opacity .3s"></div>
+      <div style="height:300px;border-radius:24px;background-color:#15120E;background-image:{{ texNight }};background-size:256px 256px"></div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+      <button onClick="{{ reseed }}" style="font:600 14px 'Sora';min-height:44px;padding:0 20px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:transparent;color:#F2EEE8;cursor:pointer;transition:transform .35s cubic-bezier(.34,1.56,.64,1),background .3s" style-hover="background:rgba(255,255,255,.06)" style-active="transform:scale(.95)">Nova semente</button>
+      <span style="font:400 12px 'JetBrains Mono';color:#A89E92">OncaTexture.generate('dourada', {{ seed }})</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
+      <div style="background:#15120E;border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px">
+        <span style="font:600 15px 'Sora';color:oklch(0.8 0.12 150)">Faça</span>
+        <span style="font-size:14px;line-height:1.55;color:#C9BFB3">Véu escuro sobre a noturna. Texto só sobre superfície sólida ou vidro (≥ 0.8). Uma área dourada grande por tela. Deriva lenta, de 60 a 110s.</span>
+      </div>
+      <div style="background:#15120E;border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px">
+        <span style="font:600 15px 'Sora';color:oklch(0.74 0.13 30)">Evite</span>
+        <span style="font-size:14px;line-height:1.55;color:#C9BFB3">Texto direto na pelagem. Estampa em bordas finas ou ícones. Girar, distorcer ou recolorir fora dos presets.</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font:400 12px 'JetBrains Mono';color:#A89E92">03</span>
+      <h2 style="margin:0;font:700 28px/1.1 'Sora'">Tipografia</h2>
+      <p style="margin:0;font-size:15px;color:#C9BFB3">Sora para títulos e ações, Instrument Sans para leitura.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;background:#15120E;border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:4px 24px">
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:16px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span style="font:700 44px/1.08 'Sora'">Marina</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">display · Sora 44/1.08 · 700</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:16px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span style="font:700 28px/1.1 'Sora'">Amigo da Onça 2026</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">titulo-1 · Sora 28/1.1 · 700</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:16px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span style="font:700 22px/1.15 'Sora'">Minha lista</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">titulo-2 · Sora 22/1.15 · 700</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:16px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span style="font:600 17px/1.25 'Sora'">R$ 100 · 20 dez</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">titulo-3 · Sora 17/1.25 · 600</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:16px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span style="font:500 15px/1.5 'Instrument Sans'">Sorteio feito. Só você vê quem tirou.</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">corpo · Instrument 15/1.5 · 500</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:16px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span style="font:400 14px/1.55 'Instrument Sans';color:#C9BFB3">Ajude quem tirou você a acertar o presente.</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">corpo-s · 14/1.55 · 400</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:16px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span style="font:500 12px/1.4 'Instrument Sans';color:#C9BFB3">Ideia de presente</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">legenda · 12/1.4 · 500</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:16px;align-items:baseline;padding:18px 0"><span style="font:600 11px/1.3 'Instrument Sans';color:#C9BFB3">Confirmado</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">micro · 11/1.3 · 600</span></div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font:400 12px 'JetBrains Mono';color:#A89E92">04</span>
+      <h2 style="margin:0;font:700 28px/1.1 'Sora'">Espaço, forma e superfície</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
+      <div style="background:#15120E;border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px">
+        <span style="font:600 15px 'Sora'">Espaçamento · base 4</span>
+        <div style="display:flex;align-items:center;gap:12px"><span style="width:4px;height:12px;background:oklch(0.8 0.12 80);border-radius:2px"></span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">4</span></div>
+        <div style="display:flex;align-items:center;gap:12px"><span style="width:8px;height:12px;background:oklch(0.8 0.12 80);border-radius:2px"></span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">8</span></div>
+        <div style="display:flex;align-items:center;gap:12px"><span style="width:12px;height:12px;background:oklch(0.8 0.12 80);border-radius:2px"></span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">12 · gap em linha</span></div>
+        <div style="display:flex;align-items:center;gap:12px"><span style="width:16px;height:12px;background:oklch(0.8 0.12 80);border-radius:2px"></span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">16 · entre blocos</span></div>
+        <div style="display:flex;align-items:center;gap:12px"><span style="width:20px;height:12px;background:oklch(0.8 0.12 80);border-radius:2px"></span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">20 · margem da tela</span></div>
+        <div style="display:flex;align-items:center;gap:12px"><span style="width:24px;height:12px;background:oklch(0.8 0.12 80);border-radius:2px"></span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">24</span></div>
+        <div style="display:flex;align-items:center;gap:12px"><span style="width:32px;height:12px;background:oklch(0.8 0.12 80);border-radius:2px"></span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">32</span></div>
+        <div style="display:flex;align-items:center;gap:12px"><span style="width:48px;height:12px;background:oklch(0.8 0.12 80);border-radius:2px"></span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">48</span></div>
+      </div>
+      <div style="background:#15120E;border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px">
+        <span style="font:600 15px 'Sora'">Raios</span>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+          <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;border-radius:8px;background:#2C2721"></div><span style="font:400 11px 'JetBrains Mono';color:#A89E92">sm 8</span></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;border-radius:16px;background:#2C2721"></div><span style="font:400 11px 'JetBrains Mono';color:#A89E92">md 16</span></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;border-radius:18px;background:#2C2721"></div><span style="font:400 11px 'JetBrains Mono';color:#A89E92">lg 18</span></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;border-radius:20px;background:#2C2721"></div><span style="font:400 11px 'JetBrains Mono';color:#A89E92">xl 20</span></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;border-radius:26px;background:#2C2721"></div><span style="font:400 11px 'JetBrains Mono';color:#A89E92">hero 26</span></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;border-radius:999px;background:#2C2721"></div><span style="font:400 11px 'JetBrains Mono';color:#A89E92">pill</span></div>
+        </div>
+      </div>
+      <div style="position:relative;overflow:hidden;border-radius:20px;min-height:260px;background-color:#15120E;background-image:{{ texNight }};background-size:256px 256px;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;gap:10px">
+        <div style="background:rgba(21,18,14,.8);backdrop-filter:blur(12px);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:2px"><span style="font:600 14px 'Sora'">Vidro</span><span style="font:400 11px 'JetBrains Mono';color:#C9BFB3">rgba(21,18,14,.8) · blur 12</span></div>
+        <div style="background:#1C1915;border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:2px"><span style="font:600 14px 'Sora'">Sólida</span><span style="font:400 11px 'JetBrains Mono';color:#C9BFB3">noite-800</span></div>
+        <div style="background:#1C1915;border:1px solid oklch(0.8 0.12 80 / .45);box-shadow:0 12px 30px -12px oklch(0.8 0.12 80 / .6);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:2px"><span style="font:600 14px 'Sora'">Destaque</span><span style="font:400 11px 'JetBrains Mono';color:#C9BFB3">borda ouro .45 · brilho-ouro</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font:400 12px 'JetBrains Mono';color:#A89E92">05</span>
+      <h2 style="margin:0;font:700 28px/1.1 'Sora'">Movimento</h2>
+      <p style="margin:0;font-size:15px;color:#C9BFB3">Três curvas, nada além. Toque em reproduzir para comparar.</p>
+    </div>
+    <div style="background:#15120E;border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:20px">
+      <sc-for list="{{ curves }}" as="cv" hint-placeholder-count="3">
+        <div style="display:grid;grid-template-columns:200px minmax(0,1fr);gap:20px;align-items:center">
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font:600 15px 'Sora'">{{ cv.name }}</span><span style="font:400 11px 'JetBrains Mono';color:#A89E92">{{ cv.spec }}</span><span style="font-size:12px;color:#C9BFB3">{{ cv.use }}</span></div>
+          <div style="position:relative;height:36px;border-radius:999px;background:#221E19">
+            <span style="position:absolute;top:4px;width:28px;height:28px;border-radius:50%;background:oklch(0.8 0.12 80);left:{{ cv.left }};transition:left 1s {{ cv.ease }}"></span>
+          </div>
+        </div>
+      </sc-for>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+        <button onClick="{{ play }}" style="font:600 14px 'Sora';min-height:44px;padding:0 22px;border:0;border-radius:999px;background:oklch(0.8 0.12 80);color:#161412;cursor:pointer;transition:transform .35s cubic-bezier(.34,1.56,.64,1)" style-active="transform:scale(.95)">Reproduzir</button>
+        <span style="font-size:13px;color:#C9BFB3">Durações: 200 instante · 350 toque · 450–600 estado · 750 entrada · 1000 revelação · 60–110s deriva</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+      <div style="background:#15120E;border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:6px"><span style="font:600 15px 'Sora'">Toque</span><span style="font-size:14px;line-height:1.55;color:#C9BFB3">Botão 0.96 · linha 0.98 · chip e ícone 0.92. Volta com mola.</span></div>
+      <div style="background:#15120E;border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:6px"><span style="font:600 15px 'Sora'">Cascata</span><span style="font-size:14px;line-height:1.55;color:#C9BFB3">Itens sobem 16px e perdem um desfoque de 4px, com 90ms entre cada um.</span></div>
+      <div style="background:#15120E;border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:6px"><span style="font:600 15px 'Sora'">Revelação</span><span style="font-size:14px;line-height:1.55;color:#C9BFB3">Giro 3D de 1s. O nome entra 300ms depois com escala .6→1 e desfoque 8→0.</span></div>
+      <div style="background:#15120E;border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:6px"><span style="font:600 15px 'Sora'">Menos movimento</span><span style="font-size:14px;line-height:1.55;color:#C9BFB3">Sem deriva e sem cascata; o giro vira crossfade de 200ms.</span></div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { seed: 3, gold: 'none', night: 'none', played: false };
+  heroRef = React.createRef();
+  componentDidMount() {
+    const go = () => {
+      if (!window.OncaTexture) return (this.t = setTimeout(go, 50));
+      this.gen(this.state.seed);
+      const el = this.heroRef.current;
+      if (el && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) el.animate([{ backgroundPosition: '0px 0px' }, { backgroundPosition: '256px 256px' }], { duration: 110000, iterations: Infinity });
+    };
+    go();
+  }
+  componentWillUnmount() { clearTimeout(this.t); }
+  gen(seed) {
+    const T = window.OncaTexture;
+    this.setState({ seed, gold: `url(${T.generate('dourada', seed)})`, night: `url(${T.generate('noturna', seed + 6)})` });
+  }
+  renderVals() {
+    const p = this.state.played;
+    const left = p ? 'calc(100% - 32px)' : '4px';
+    return {
+      texGold: this.state.gold, texNight: this.state.night, seed: this.state.seed, heroRef: this.heroRef,
+      reseed: () => this.gen(1 + Math.floor(Math.random() * 999)),
+      play: () => this.setState({ played: !p }),
+      curves: [
+        { name: 'suave', spec: 'cubic-bezier(.2,.8,.2,1)', use: 'entradas, giros, foco', ease: 'cubic-bezier(.2,.8,.2,1)', left },
+        { name: 'mola', spec: 'cubic-bezier(.34,1.56,.64,1)', use: 'toque, toggle, chips', ease: 'cubic-bezier(.34,1.56,.64,1)', left },
+        { name: 'mola-leve', spec: 'cubic-bezier(.34,1.3,.64,1)', use: 'abas, toast', ease: 'cubic-bezier(.34,1.3,.64,1)', left }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

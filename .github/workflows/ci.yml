@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            api/package-lock.json
+            app/package-lock.json
+      - run: npm ci --prefix api
+      - run: npm ci --prefix app
+      - name: Tipos
+        run: npm run typecheck --prefix api && npm run typecheck --prefix app
+      - name: Testes da API (sorteio, apuração e a noite inteira contra o Worker local)
+        run: npm test --prefix api
+      - name: Build do app
+        run: npm run build --prefix app
+        env:
+          VITE_API_URL: https://exemplo.invalid

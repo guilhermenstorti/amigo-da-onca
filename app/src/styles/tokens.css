@@ -1,0 +1,96 @@
+/* Tokens do design/Styleguide.md. Tema único: escuro quente. */
+:root {
+  color-scheme: dark;
+
+  /* Noite: fundos e superfícies */
+  --noite-950: #0f0d0b;
+  --noite-900: #15120e;
+  --noite-800: #1c1915;
+  --noite-700: #221e19;
+  --noite-600: #2c2721;
+  --noite-500: #3a342d;
+
+  /* Areia: texto */
+  --areia-50: #f2eee8;
+  --areia-300: #c9bfb3;
+  --areia-500: #a89e92;
+
+  /* Ouro: acento */
+  --ouro-400: oklch(0.8 0.12 80);
+  --ouro-300: oklch(0.86 0.12 80);
+  --ouro-botao: #e0b260;
+  --ouro-veu: rgba(228, 182, 100, 0.86);
+  --sobre-ouro: #161412;
+
+  /* Feedback */
+  --sucesso: oklch(0.8 0.12 150);
+  --alerta: oklch(0.74 0.13 30);
+
+  /* Pelagem */
+  --pelo-base: #c98a3a;
+  --tex-dourada: url('../assets/tex/dourada.webp');
+  --tex-noturna: url('../assets/tex/noturna.webp');
+  --veu-noturno: linear-gradient(180deg, transparent 0%, rgba(21, 18, 14, 0.5) 40%, rgba(21, 18, 14, 0.94) 75%);
+
+  /* Superfícies */
+  --vidro: rgba(21, 18, 14, 0.8);
+  --vidro-lista: rgba(30, 26, 22, 0.88);
+  --borda: rgba(255, 255, 255, 0.06);
+  --borda-forte: rgba(255, 255, 255, 0.16);
+  --borda-ouro: oklch(0.8 0.12 80 / 0.45);
+
+  /* Tipografia (rem: acompanha o zoom do navegador) */
+  --fonte-titulo: 'Sora Variable', 'Sora', system-ui, sans-serif;
+  --fonte-corpo: 'Instrument Sans Variable', 'Instrument Sans', system-ui, sans-serif;
+  --fs-display: 2.75rem; /* 44 */
+  --fs-titulo-1: 1.75rem; /* 28 */
+  --fs-titulo-2: 1.375rem; /* 22 */
+  --fs-titulo-3: 1.0625rem; /* 17 */
+  --fs-botao: 0.9375rem; /* 15 */
+  --fs-corpo: 0.9375rem; /* 15 */
+  --fs-corpo-s: 0.875rem; /* 14 */
+  --fs-legenda: 0.75rem; /* 12 */
+  --fs-micro: 0.6875rem; /* 11 */
+  --fs-campo: 1rem; /* 16: evita o zoom do Safari ao focar */
+
+  /* Espaço (4pt) */
+  --e-1: 4px;
+  --e-2: 8px;
+  --e-3: 12px;
+  --e-4: 16px;
+  --e-5: 20px;
+  --e-6: 24px;
+  --e-8: 32px;
+  --e-12: 48px;
+
+  /* Raios */
+  --r-sm: 8px;
+  --r-md: 16px;
+  --r-lg: 18px;
+  --r-xl: 20px;
+  --r-hero: 26px;
+  --r-pill: 999px;
+
+  /* Elevação */
+  --sombra-tela: 0 40px 80px -40px rgba(0, 0, 0, 0.9);
+  --sombra-toast: 0 20px 40px -20px rgba(0, 0, 0, 0.8);
+  --brilho-ouro: 0 12px 30px -12px oklch(0.8 0.12 80 / 0.6);
+  --anel-foco: 0 0 0 4px oklch(0.8 0.12 80 / 0.15), 0 0 30px -8px oklch(0.8 0.12 80 / 0.5);
+
+  /* Movimento */
+  --suave: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --mola: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --mola-leve: cubic-bezier(0.34, 1.3, 0.64, 1);
+  --instante: 200ms;
+  --toque: 350ms;
+  --estado: 500ms;
+  --entrada: 750ms;
+  --revelacao: 1000ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --mola: var(--suave);
+    --mola-leve: var(--suave);
+  }
+}

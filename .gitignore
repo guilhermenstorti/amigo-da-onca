@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.wrangler/
+.dev.vars
+*.log
+
+# Fotos dos participantes: ficam só na máquina local (o repo é público)
+assets/img/
+scripts/saida/
+
+# Produção: config temporária com o database_id real e backups do banco
+api/wrangler.producao.toml
+backup-*.sql
+
+# Testes
+test-results/
+playwright-report/
+.tmp/

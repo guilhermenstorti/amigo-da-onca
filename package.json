@@ -1,0 +1,20 @@
+{
+  "name": "amigo-da-onca",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "npm install && npm install --prefix app && npm install --prefix api",
+    "dev:api": "npm run dev --prefix api",
+    "dev:app": "npm run dev --prefix app",
+    "build": "npm run build --prefix app",
+    "test": "npm test --prefix api",
+    "typecheck": "npm run typecheck --prefix api && npm run typecheck --prefix app",
+    "texturas": "node scripts/render-texturas.mjs",
+    "fotos": "node scripts/fotos.mjs",
+    "producao": "node scripts/wrangler-producao.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.65.1",
+    "sharp": "0.35.5"
+  }
+}

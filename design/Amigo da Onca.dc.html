@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=Familjen+Grotesk:wght@500;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#E9E6E1;font-family:'Instrument Sans',sans-serif;color:#2A2420}a{color:#9A5B1E}a:hover{color:#6E3F12}</style>
+</helmet>
+
+<section id="turn-3" data-screen-label="Rodada 3" style="padding:64px;display:flex;flex-direction:column;gap:40px;background:#0B0A08;color:#F2EEE8;font-family:'Instrument Sans',sans-serif;border-bottom:1px solid rgba(255,255,255,.06)">
+  <header style="display:flex;flex-direction:column;gap:10px;max-width:760px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#A89E92">Rodada 3 · Pelagem Total · mobile primeiro</div>
+    <h1 style="margin:0;font-family:'Sora',sans-serif;font-size:42px;line-height:1.08;font-weight:700">Pelagem de verdade</h1>
+    <p style="margin:0;font-size:16px;line-height:1.6;color:#C9BFB3;text-wrap:pretty">Gerei a textura de novo com base na anatomia da onça-pintada: rosetas grossas e angulosas, em tamanhos variados e bem juntas. O anel é quebrado e tem espessura irregular, o miolo é um pouco mais escuro e quase sempre tem 1 a 3 pintinhas dentro, que é a marca da onça. Entre as rosetas ficam manchas sólidas soltas e um grão de pelo. As telas mostram a 2a em mobile. Os efeitos de hover viraram resposta ao toque.</p>
+  </header>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;max-width:1152px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="height:240px;border-radius:20px;background-color:#C98A3A;background-image:{{ texGold3 }};background-size:256px 256px"></div>
+      <span style="font-size:13px;color:#C9BFB3"><strong style="color:#F2EEE8">Dourada:</strong> revelação, toggle ativo, anéis de avatar</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="height:240px;border-radius:20px;background-color:#15120E;background-image:{{ texNight3 }};background-size:256px 256px"></div>
+      <span style="font-size:13px;color:#C9BFB3"><strong style="color:#F2EEE8">Noturna:</strong> fundo das telas</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="height:240px;border-radius:20px;background-color:#C98A3A;background-image:{{ texGold3 }};background-size:640px 640px;background-position:-120px -90px"></div>
+      <span style="font-size:13px;color:#C9BFB3"><strong style="color:#F2EEE8">Detalhe ampliado:</strong> anel quebrado e pintas internas</span>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+
+    <div id="3a" style="display:flex;flex-direction:column;gap:14px;width:390px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;background:oklch(0.8 0.12 80);color:#161412;padding:4px 8px;border-radius:6px">3a</span>
+        <span style="font-family:'Sora',sans-serif;font-size:20px;font-weight:700">Tela · Sorteio</span>
+      </div>
+      <div ref="{{ d5 }}" style="position:relative;width:390px;height:820px;border-radius:44px;overflow:hidden;background-color:#15120E;background-image:{{ texNight3 }};background-size:256px 256px;border:1px solid rgba(255,255,255,.08);box-shadow:0 40px 80px -40px rgba(0,0,0,.9)">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,18,14,0) 0%,rgba(21,18,14,.5) 40%,rgba(21,18,14,.94) 75%)"></div>
+        <div style="position:relative;height:100%;box-sizing:border-box;padding:58px 20px 24px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+            <span style="font-size:13px;font-weight:600;padding:9px 14px;border-radius:999px;background:rgba(21,18,14,.8);backdrop-filter:blur(12px)">Turma do Churras</span>
+            <span style="width:44px;height:44px;border-radius:50%;padding:2.5px;box-sizing:border-box;background-color:#C98A3A;background-image:{{ texGold3 }};background-size:110px 110px;display:flex">
+              <span style="flex:1;border-radius:50%;background:#1E1A16;color:oklch(0.86 0.12 80);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">VC</span>
+            </span>
+          </div>
+          <div style="background:rgba(21,18,14,.8);backdrop-filter:blur(12px);border-radius:20px;padding:16px 18px;display:flex;flex-direction:column;gap:4px">
+            <span style="font-family:'Sora',sans-serif;font-size:28px;font-weight:700;line-height:1.1">Amigo da Onça 2026</span>
+            <span style="font-size:13px;color:#C9BFB3">Sorteio feito. Só você vê quem tirou.</span>
+          </div>
+
+          <div onClick="{{ flip3 }}" style="perspective:1200px;cursor:pointer;height:230px;flex:none;transition:transform .4s cubic-bezier(.2,.8,.2,1)" style-active="transform:scale(.97)">
+            <div style="position:relative;height:100%;transition:transform 1s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d;transform:{{ rot3 }}">
+              <div ref="{{ d6 }}" style="position:absolute;inset:0;backface-visibility:hidden;border-radius:26px;background-color:#C98A3A;background-image:{{ texGold3 }};background-size:220px 220px;display:flex;align-items:center;justify-content:center;box-shadow:0 24px 48px -24px rgba(201,138,58,.6)">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#15120E;padding:16px 24px;border-radius:18px">
+                  <span style="font-size:12px;color:#C9BFB3">Seu amigo da onça é…</span>
+                  <span style="font-family:'Sora',sans-serif;font-size:19px;font-weight:600">Toque para revelar</span>
+                </div>
+              </div>
+              <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);border-radius:26px;background:radial-gradient(120% 120% at 50% 0%,#3A2F22,#1C1915);border:1px solid oklch(0.8 0.12 80 / .45);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px">
+                <span style="font-size:13px;color:#C9BFB3">Você tirou</span>
+                <span ref="{{ n3 }}" style="font-family:'Sora',sans-serif;font-size:44px;font-weight:700;color:oklch(0.86 0.12 80)">Marina</span>
+                <span style="font-size:12px;color:#C9BFB3">3 itens na lista de desejos</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+            <sc-for list="{{ facts }}" as="f" hint-placeholder-count="3">
+              <div style="background:rgba(30,26,22,.85);backdrop-filter:blur(12px);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:2px">
+                <span style="font-family:'Sora',sans-serif;font-size:17px;font-weight:600">{{ f.v }}</span>
+                <span style="font-size:11px;color:#C9BFB3">{{ f.k }}</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div ref="{{ list3 }}" style="display:flex;flex-direction:column;gap:6px">
+            <sc-for list="{{ people }}" as="p" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;min-height:56px;box-sizing:border-box;border-radius:16px;background:rgba(30,26,22,.88);backdrop-filter:blur(12px);transition:transform .35s cubic-bezier(.2,.8,.2,1),background .3s" style-active="transform:scale(.98);background:rgba(44,38,31,.95)">
+                <span style="width:36px;height:36px;border-radius:50%;padding:2.5px;box-sizing:border-box;background-color:#C98A3A;background-image:{{ texGold3 }};background-size:90px 90px;display:flex">
+                  <span style="flex:1;border-radius:50%;background:#1E1A16;color:oklch(0.86 0.12 80);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">{{ p.ini }}</span>
+                </span>
+                <span style="flex:1;font-size:15px;font-weight:500">{{ p.name }}</span>
+                <span style="font-size:12px;font-weight:600;color:#C9BFB3">{{ p.status }}</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="margin-top:auto">
+            <button style="width:100%;min-height:56px;font:600 15px 'Sora';border:0;border-radius:18px;color:#161412;cursor:pointer;background-color:#E0B260;background-image:linear-gradient(rgba(228,182,100,.86),rgba(228,182,100,.86)),{{ texGold3 }};background-size:auto,180px 180px;transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .4s;box-shadow:0 12px 30px -12px oklch(0.8 0.12 80 / .6)" style-active="transform:scale(.96)">Ver lista da Marina</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="3b" style="display:flex;flex-direction:column;gap:14px;width:390px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;background:oklch(0.8 0.12 80);color:#161412;padding:4px 8px;border-radius:6px">3b</span>
+        <span style="font-family:'Sora',sans-serif;font-size:20px;font-weight:700">Tela · Minha lista</span>
+      </div>
+      <div style="position:relative;width:390px;height:820px;border-radius:44px;overflow:hidden;background:#15120E;border:1px solid rgba(255,255,255,.08);box-shadow:0 40px 80px -40px rgba(0,0,0,.9)">
+        <div ref="{{ d7 }}" style="position:absolute;left:0;right:0;top:0;height:260px;background-color:#15120E;background-image:{{ texNight3 }};background-size:256px 256px"></div>
+        <div style="position:absolute;left:0;right:0;top:0;height:262px;background:linear-gradient(180deg,rgba(21,18,14,.1),#15120E)"></div>
+        <div style="position:relative;height:100%;box-sizing:border-box;padding:58px 20px 24px;display:flex;flex-direction:column;gap:18px">
+          <div style="background:rgba(21,18,14,.8);backdrop-filter:blur(12px);border-radius:20px;padding:16px 18px;display:flex;flex-direction:column;gap:4px">
+            <span style="font-family:'Sora',sans-serif;font-size:26px;font-weight:700;line-height:1.1">Minha lista</span>
+            <span style="font-size:13px;color:#C9BFB3">Ajude quem tirou você a acertar.</span>
+          </div>
+
+          <div style="position:relative;display:flex;background:#221E19;border-radius:999px;padding:4px">
+            <span style="position:absolute;top:4px;left:4px;width:calc((100% - 8px) / 3);height:40px;border-radius:999px;background:oklch(0.8 0.12 80);transition:transform .6s cubic-bezier(.34,1.3,.64,1);transform:{{ tab3X }}"></span>
+            <sc-for list="{{ tabs3 }}" as="t" hint-placeholder-count="3">
+              <button onClick="{{ t.go }}" style="position:relative;flex:1;height:40px;border:0;background:transparent;font:600 13px 'Sora';cursor:pointer;color:{{ t.color }};transition:color .4s">{{ t.label }}</button>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label style="font-size:12px;color:#C9BFB3">Ideia de presente</label>
+            <div style="display:flex;gap:8px">
+              <input placeholder="Ex.: um livro de receitas" style="flex:1;min-width:0;min-height:50px;box-sizing:border-box;font:500 15px 'Instrument Sans';color:#F2EEE8;background:#221E19;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:0 14px;outline:none;transition:border-color .4s,box-shadow .5s cubic-bezier(.2,.8,.2,1)" style-focus="border-color:oklch(0.8 0.12 80 / .8);box-shadow:0 0 0 4px oklch(0.8 0.12 80 / .15),0 0 30px -8px oklch(0.8 0.12 80 / .5)">
+              <button style="width:50px;height:50px;flex:none;border:0;border-radius:16px;background:#2C2721;color:oklch(0.86 0.12 80);font:600 22px 'Sora';cursor:pointer;transition:transform .35s cubic-bezier(.34,1.56,.64,1)" style-active="transform:scale(.9)">+</button>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <span style="font-size:12px;color:#C9BFB3">Eu curto</span>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ chips3 }}" as="c" hint-placeholder-count="6">
+                <button onClick="{{ c.go }}" style="font:500 14px 'Instrument Sans';min-height:40px;padding:0 16px;border-radius:999px;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};transform:{{ c.tf }};transition:transform .5s cubic-bezier(.34,1.56,.64,1),background .35s,color .35s,border-color .35s" style-active="transform:scale(.92)">{{ c.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;background:#1C1915;border:1px solid rgba(255,255,255,.05);border-radius:20px;padding:4px 16px">
+            <sc-for list="{{ toggles3 }}" as="tg" hint-placeholder-count="2">
+              <div onClick="{{ tg.go }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;cursor:pointer;border-bottom:1px solid {{ tg.line }}">
+                <span style="font-size:15px;font-weight:500">{{ tg.label }}</span>
+                <span style="position:relative;width:56px;height:32px;flex:none;border-radius:999px;overflow:hidden;background:#3A342D;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)">
+                  <span style="position:absolute;inset:0;background-color:#C98A3A;background-image:{{ texGold3 }};background-size:96px 96px;opacity:{{ tg.op }};transition:opacity .45s ease"></span>
+                  <span style="position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#F2EEE8;box-shadow:0 2px 8px rgba(0,0,0,.45);transition:transform .55s cubic-bezier(.34,1.56,.64,1);transform:{{ tg.x }}"></span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="margin-top:auto">
+            <button onClick="{{ save3 }}" style="width:100%;min-height:56px;font:600 15px 'Sora';border:0;border-radius:18px;color:#161412;cursor:pointer;background-color:#E0B260;background-image:linear-gradient(rgba(228,182,100,.86),rgba(228,182,100,.86)),{{ texGold3 }};background-size:auto,180px 180px;transition:transform .35s cubic-bezier(.34,1.56,.64,1)" style-active="transform:scale(.96)">Salvar lista</button>
+          </div>
+        </div>
+        <div style="position:absolute;left:20px;right:20px;bottom:92px;display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:16px;background:#2A251F;border:1px solid oklch(0.8 0.12 80 / .35);box-shadow:0 20px 40px -20px rgba(0,0,0,.8);transition:transform .6s cubic-bezier(.34,1.4,.64,1),opacity .4s;transform:{{ toast3T }};opacity:{{ toast3O }};pointer-events:none">
+          <span style="width:8px;height:8px;border-radius:50%;background:oklch(0.8 0.12 80)"></span>
+          <span style="font-size:14px;font-weight:500">Lista salva. Sua onça agradece!</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:300px;padding-top:44px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#A89E92">Notas de interação</span>
+      <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.55;color:#C9BFB3">
+        <p style="margin:0"><strong style="color:#F2EEE8">Toque:</strong> todo elemento tocável encolhe com mola (0.92–0.98) e volta. Alvos com pelo menos 44px.</p>
+        <p style="margin:0"><strong style="color:#F2EEE8">Toggle:</strong> quando ligado, a trilha se enche de pelagem dourada. Teste em <a href="#3b">3b</a>.</p>
+        <p style="margin:0"><strong style="color:#F2EEE8">Chips:</strong> selecionado fica dourado e cresce um pouco, com mola.</p>
+        <p style="margin:0"><strong style="color:#F2EEE8">Notificação:</strong> sobe acima do botão principal e some depois de 2,4s. Toque em "Salvar lista".</p>
+        <p style="margin:0"><strong style="color:#F2EEE8">Fundo:</strong> a pelagem noturna se move bem devagar; a lista entra em cascata.</p>
+        <p style="margin:0"><strong style="color:#F2EEE8">Removido:</strong> botão magnético e todos os efeitos que dependem de hover.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="turn-2" data-screen-label="Rodada 2" style="padding:64px;display:flex;flex-direction:column;gap:40px;background:#0F0D0B;color:#F2EEE8;font-family:'Instrument Sans',sans-serif">
+  <header style="display:flex;flex-direction:column;gap:10px;max-width:760px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#A89E92">Rodada 2 · escuro + pelagem orgânica · 2 direções</div>
+    <h1 style="margin:0;font-family:'Sora',sans-serif;font-size:42px;line-height:1.08;font-weight:700">A onça sai da sombra</h1>
+    <p style="margin:0;font-size:16px;line-height:1.6;color:#C9BFB3;text-wrap:pretty">Base escura e Sora da 1c, a textura plena da 1b, agora com rosetas orgânicas: cada uma é diferente, quebrada em 3 a 5 fragmentos irregulares em volta de um miolo mais escuro. As texturas se movem devagar e os componentes reagem ao cursor. O texto continua sempre sobre superfícies lisas.</p>
+  </header>
+
+  <div style="display:flex;flex-direction:column;gap:14px;max-width:1152px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#A89E92">Estudo de textura · passe o mouse para aproximar</span>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="height:210px;border-radius:20px;background-color:#D59B48;background-image:{{ texGold }};background-size:240px 240px;transition:background-size 1.6s cubic-bezier(.2,.8,.2,1)" style-hover="background-size:320px 320px"></div>
+        <span style="font-size:13px;color:#C9BFB3"><strong style="color:#F2EEE8">Dourada plena:</strong> destaques, revelação, avatares</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="height:210px;border-radius:20px;background-color:#16130F;background-image:{{ texNight }};background-size:240px 240px;transition:background-size 1.6s cubic-bezier(.2,.8,.2,1)" style-hover="background-size:320px 320px"></div>
+        <span style="font-size:13px;color:#C9BFB3"><strong style="color:#F2EEE8">Noturna evidente:</strong> fundo de tela, bem visível</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="height:210px;border-radius:20px;background-color:#14110E;background-image:{{ texLine }};background-size:240px 240px;transition:background-size 1.6s cubic-bezier(.2,.8,.2,1)" style-hover="background-size:320px 320px"></div>
+        <span style="font-size:13px;color:#C9BFB3"><strong style="color:#F2EEE8">Rosetas douradas:</strong> fundo alternativo, sem miolo</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+
+    <div id="2a" style="width:560px;display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;background:oklch(0.8 0.12 80);color:#161412;padding:4px 8px;border-radius:6px">2a</span>
+        <span style="font-family:'Sora',sans-serif;font-size:22px;font-weight:700">Pelagem Total</span>
+      </div>
+      <p style="margin:0;font-size:14px;line-height:1.55;color:#C9BFB3;text-wrap:pretty">A tela inteira é pelagem noturna, se movendo devagar, com um véu escuro que desce de cima para baixo. O card de sorteio é pelagem dourada plena. Lista e conteúdo ficam em vidro fosco. Os itens entram em cascata.</p>
+
+      <div ref="{{ d1 }}" style="position:relative;overflow:hidden;border-radius:28px;background-color:#16130F;background-image:{{ texNight }};background-size:240px 240px;box-shadow:0 30px 60px -30px rgba(0,0,0,.8)">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,19,15,.05) 0%,rgba(22,19,15,.55) 45%,rgba(22,19,15,.92) 100%)"></div>
+        <div style="position:relative;padding:28px;display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+            <div style="display:flex;flex-direction:column;gap:6px;background:rgba(22,19,15,.78);backdrop-filter:blur(10px);padding:12px 16px;border-radius:16px">
+              <span style="font-size:12px;color:#C9BFB3">Turma do Churras</span>
+              <span style="font-family:'Sora',sans-serif;font-size:24px;font-weight:700;line-height:1.1">Amigo da Onça 2026</span>
+            </div>
+            <span style="font-size:12px;font-weight:600;padding:8px 12px;border-radius:999px;background:rgba(22,19,15,.82);backdrop-filter:blur(10px);color:oklch(0.85 0.12 80)">20 dez · R$ 100</span>
+          </div>
+
+          <div onClick="{{ flip2a }}" style="perspective:1200px;cursor:pointer;height:180px;transition:transform .5s cubic-bezier(.2,.8,.2,1)" style-hover="transform:translateY(-3px)">
+            <div style="position:relative;height:100%;transition:transform 1s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d;transform:{{ rot2a }}">
+              <div ref="{{ d2 }}" style="position:absolute;inset:0;backface-visibility:hidden;border-radius:22px;background-color:#D59B48;background-image:{{ texGold }};background-size:200px 200px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 40px -20px rgba(213,155,72,.55)">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#161412;padding:14px 22px;border-radius:16px">
+                  <span style="font-size:12px;color:#C9BFB3">Seu amigo da onça é…</span>
+                  <span style="font-family:'Sora',sans-serif;font-size:18px;font-weight:600">Toque para revelar</span>
+                </div>
+              </div>
+              <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);border-radius:22px;background:radial-gradient(120% 120% at 50% 0%,#3A2F22,#1C1915);border:1px solid oklch(0.8 0.12 80 / .45);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px">
+                <span style="font-size:13px;color:#C9BFB3">Você tirou</span>
+                <span ref="{{ nA }}" style="font-family:'Sora',sans-serif;font-size:40px;font-weight:700;color:oklch(0.86 0.12 80)">Marina</span>
+                <span style="font-size:12px;color:#C9BFB3">3 itens na lista de desejos</span>
+              </div>
+            </div>
+          </div>
+
+          <div ref="{{ list }}" style="display:flex;flex-direction:column;gap:6px">
+            <sc-for list="{{ people }}" as="p" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;background:rgba(30,26,22,.82);backdrop-filter:blur(10px);transition:background .4s,transform .45s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(44,38,31,.92);transform:translateX(6px)">
+                <span style="width:38px;height:38px;border-radius:50%;padding:2.5px;box-sizing:border-box;background-color:#D59B48;background-image:{{ texGold }};background-size:90px 90px;display:flex">
+                  <span style="flex:1;border-radius:50%;background:#1E1A16;color:oklch(0.86 0.12 80);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">{{ p.ini }}</span>
+                </span>
+                <span style="flex:1;font-size:14px;font-weight:500">{{ p.name }}</span>
+                <span style="font-size:11px;font-weight:600;color:#C9BFB3">{{ p.status }}</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button style="font:600 14px 'Sora';border:0;border-radius:999px;padding:13px 22px;color:#161412;cursor:pointer;background-color:#E0B260;background-image:linear-gradient(rgba(228,182,100,.86),rgba(228,182,100,.86)),{{ texGold }};background-size:auto,160px 160px;background-position:0 0,0 0;transition:background-position 1.2s cubic-bezier(.2,.8,.2,1),box-shadow .5s,transform .4s cubic-bezier(.2,.8,.2,1)" style-hover="background-position:0 0,80px 40px;box-shadow:0 0 36px -6px oklch(0.8 0.12 80 / .7);transform:translateY(-2px)" style-active="transform:scale(.96)">Sortear agora</button>
+            <button onClick="{{ replay }}" style="font:600 14px 'Sora';border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:12px 20px;background:rgba(22,19,15,.7);backdrop-filter:blur(10px);color:#F2EEE8;cursor:pointer;transition:all .4s cubic-bezier(.2,.8,.2,1)" style-hover="background:rgba(255,255,255,.1)" style-active="transform:scale(.96)">Repetir entrada</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="2b" style="width:560px;display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;background:oklch(0.8 0.12 80);color:#161412;padding:4px 8px;border-radius:6px">2b</span>
+        <span style="font-family:'Sora',sans-serif;font-size:22px;font-weight:700">Holofote</span>
+      </div>
+      <p style="margin:0;font-size:14px;line-height:1.55;color:#C9BFB3;text-wrap:pretty">O fundo tem rosetas em contorno dourado. Um holofote acompanha o cursor (com atraso suave) e acende a pelagem plena por onde passa. Fica mais calmo para ler, e brincar com o mouse revela a onça.</p>
+
+      <div onMouseMove="{{ onSpot }}" onMouseLeave="{{ offSpot }}" style="position:relative;overflow:hidden;border-radius:28px;background:#14110E;box-shadow:0 30px 60px -30px rgba(0,0,0,.8)">
+        <div ref="{{ d3 }}" style="position:absolute;inset:0;background-image:{{ texLine }};background-size:240px 240px;opacity:.55"></div>
+        <div ref="{{ spot }}" style="position:absolute;inset:0;background-color:#D59B48;background-image:{{ texGold }};background-size:240px 240px;opacity:.9"></div>
+        <div style="position:relative;padding:28px;display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;background:#1C1915;border:1px solid rgba(255,255,255,.06);padding:14px 16px;border-radius:18px">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <span style="font-size:12px;color:#C9BFB3">Turma do Churras · 20 dez</span>
+              <span style="font-family:'Sora',sans-serif;font-size:22px;font-weight:700;line-height:1.1">Amigo da Onça 2026</span>
+            </div>
+            <div onMouseEnter="{{ stackIn }}" onMouseLeave="{{ stackOut }}" style="display:flex;cursor:default">
+              <sc-for list="{{ stack }}" as="a" hint-placeholder-count="4">
+                <span style="width:32px;height:32px;border-radius:50%;margin-left:{{ a.ml }};background:#2A251F;border:2px solid #1C1915;color:oklch(0.86 0.12 80);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;transition:margin-left .55s cubic-bezier(.34,1.56,.64,1)">{{ a.ini }}</span>
+              </sc-for>
+            </div>
+          </div>
+
+          <div onClick="{{ flip2b }}" style="perspective:1200px;cursor:pointer;height:170px">
+            <div style="position:relative;height:100%;transition:transform 1s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d;transform:{{ rot2b }}">
+              <div style="position:absolute;inset:0;backface-visibility:hidden;border-radius:22px;overflow:hidden;background:#1C1915;border:1px solid rgba(255,255,255,.06);display:grid;grid-template-columns:130px 1fr">
+                <div ref="{{ d4 }}" style="background-color:#D59B48;background-image:{{ texGold }};background-size:200px 200px"></div>
+                <div style="display:flex;flex-direction:column;justify-content:center;gap:4px;padding:0 24px">
+                  <span style="font-size:12px;color:#C9BFB3">Seu amigo da onça é…</span>
+                  <span style="font-family:'Sora',sans-serif;font-size:20px;font-weight:600">Toque para revelar</span>
+                </div>
+              </div>
+              <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);border-radius:22px;background:#1C1915;border:1px solid oklch(0.8 0.12 80 / .45);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px">
+                <span style="font-size:13px;color:#C9BFB3">Você tirou</span>
+                <span ref="{{ nB }}" style="font-family:'Sora',sans-serif;font-size:40px;font-weight:700;color:oklch(0.86 0.12 80)">Marina</span>
+                <span style="font-size:12px;color:oklch(0.86 0.12 80);font-weight:600">Ver lista de desejos →</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <sc-for list="{{ people }}" as="p" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;background:#1C1915;border:1px solid rgba(255,255,255,.05);transition:border-color .4s,transform .45s cubic-bezier(.2,.8,.2,1)" style-hover="border-color:oklch(0.8 0.12 80 / .5);transform:scale(1.015)">
+                <span style="width:32px;height:32px;border-radius:50%;background:#2A251F;color:oklch(0.86 0.12 80);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">{{ p.ini }}</span>
+                <span style="flex:1;font-size:14px;font-weight:500">{{ p.name }}</span>
+                <span style="font-size:11px;font-weight:600;color:#C9BFB3">{{ p.status }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:14px;max-width:1152px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#A89E92">Componentes e movimento · servem para 2a e 2b</span>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+
+      <div style="background:#1A1714;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:16px;min-height:150px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#A89E92">botão magnético</span>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:10px" onMouseMove="{{ magMove }}" onMouseLeave="{{ magLeave }}">
+          <button ref="{{ mag }}" style="font:600 14px 'Sora';border:0;border-radius:999px;padding:14px 26px;color:#161412;cursor:pointer;background-color:#E0B260;background-image:linear-gradient(rgba(228,182,100,.86),rgba(228,182,100,.86)),{{ texGold }};background-size:auto,160px 160px;transition:transform .6s cubic-bezier(.2,.8,.2,1),box-shadow .5s" style-hover="box-shadow:0 0 36px -6px oklch(0.8 0.12 80 / .7)">Entrar no sorteio</button>
+        </div>
+      </div>
+
+      <div style="background:#1A1714;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:16px;min-height:150px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#A89E92">abas · indicador fluido</span>
+        <div style="flex:1;display:flex;align-items:center">
+          <div style="position:relative;display:flex;background:#24201B;border-radius:999px;padding:4px">
+            <span style="position:absolute;top:4px;left:4px;width:76px;height:36px;border-radius:999px;background:oklch(0.8 0.12 80);transition:transform .6s cubic-bezier(.34,1.3,.64,1);transform:{{ tabX }}"></span>
+            <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+              <button onClick="{{ t.go }}" style="position:relative;width:76px;height:36px;border:0;background:transparent;font:600 12px 'Sora';cursor:pointer;color:{{ t.color }};transition:color .4s">{{ t.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#1A1714;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:16px;min-height:150px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#A89E92">toggle · mola</span>
+        <div onClick="{{ toggle }}" style="flex:1;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer">
+          <span style="font-size:14px;font-weight:500">Revelar só no dia da festa</span>
+          <span style="width:52px;height:30px;border-radius:999px;padding:3px;box-sizing:border-box;background:{{ trackBg }};transition:background .45s;display:flex">
+            <span style="width:24px;height:24px;border-radius:50%;background:#F2EEE8;box-shadow:0 2px 6px rgba(0,0,0,.4);transition:transform .55s cubic-bezier(.34,1.56,.64,1);transform:{{ knobX }}"></span>
+          </span>
+        </div>
+      </div>
+
+      <div style="background:#1A1714;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:16px;min-height:150px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#A89E92">campo · foco com brilho</span>
+        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:8px">
+          <label style="font-size:12px;color:#C9BFB3">Ideia de presente</label>
+          <input placeholder="Ex.: um livro de receitas" style="font:500 14px 'Instrument Sans';color:#F2EEE8;background:#24201B;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:13px 14px;outline:none;transition:border-color .4s,box-shadow .5s cubic-bezier(.2,.8,.2,1)" style-focus="border-color:oklch(0.8 0.12 80 / .8);box-shadow:0 0 0 4px oklch(0.8 0.12 80 / .15),0 0 30px -8px oklch(0.8 0.12 80 / .5)">
+        </div>
+      </div>
+
+      <div style="background:#1A1714;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:16px;min-height:150px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#A89E92">chips · flutuam no hover</span>
+        <div style="flex:1;display:flex;flex-wrap:wrap;gap:8px;align-content:center">
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
+            <span style="font-size:13px;font-weight:500;padding:8px 14px;border-radius:999px;background:#24201B;border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:transform .45s cubic-bezier(.34,1.56,.64,1),background .3s,border-color .3s" style-hover="transform:translateY(-3px) rotate(-2deg);border-color:oklch(0.8 0.12 80 / .5);background:#2C2721" style-active="transform:scale(.94)">{{ c }}</span>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="position:relative;overflow:hidden;background:#1A1714;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:16px;min-height:150px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#A89E92">notificação · sobe e some</span>
+        <div style="flex:1;display:flex;align-items:flex-start">
+          <button onClick="{{ showToast }}" style="font:600 13px 'Sora';border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:10px 18px;background:transparent;color:#F2EEE8;cursor:pointer;transition:all .4s" style-hover="background:rgba(255,255,255,.08)" style-active="transform:scale(.96)">Copiar convite</button>
+        </div>
+        <div style="position:absolute;left:20px;right:20px;bottom:16px;display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;background:#2A251F;border:1px solid oklch(0.8 0.12 80 / .35);transition:transform .6s cubic-bezier(.34,1.4,.64,1),opacity .4s;transform:{{ toastT }};opacity:{{ toastO }};pointer-events:none">
+          <span style="width:8px;height:8px;border-radius:50%;background:oklch(0.8 0.12 80)"></span>
+          <span style="font-size:13px;font-weight:500">Link copiado. Manda no grupo!</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="turn-1" data-screen-label="Rodada 1" style="padding:64px;display:flex;flex-direction:column;gap:40px">
+  <header style="display:flex;flex-direction:column;gap:10px;max-width:760px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#7A6F66">Rodada 1 · baixa fidelidade · 3 direções</div>
+    <h1 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-size:44px;line-height:1.05;font-weight:700">Como a onça aparece na interface?</h1>
+    <p style="margin:0;font-size:16px;line-height:1.55;color:#5A5048;text-wrap:pretty">A diferença entre as três é o <strong>volume da textura</strong>: marca d'água, recorte em formas, ou tom-sobre-tom no escuro. Em todas, o texto nunca fica sobre a estampa em contraste alto. Passe o mouse nos componentes e clique no card de sorteio.</p>
+  </header>
+
+  <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+
+    <!-- 1a -->
+    <div id="1a" style="width:540px;display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#2A2420;color:#FAF7F2;padding:4px 8px;border-radius:6px">1a</span>
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:700">Rosetas Sutis</span>
+      </div>
+      <p style="margin:0;font-size:14px;line-height:1.55;color:#5A5048;text-wrap:pretty">Creme quente com rosetas a ~7% de opacidade, como marca d'água. A textura vive no fundo e só "acorda" (escurece e desliza) no hover. Âmbar como único acento. A mais leve e legível.</p>
+
+      <div style="background:#FAF7F2;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:20px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 20px 40px -24px rgba(60,40,20,.25);background-image:radial-gradient(circle at 24px 28px,rgba(120,80,40,.05) 0 6px,transparent 6.5px),radial-gradient(circle at 24px 28px,transparent 6px,rgba(42,36,32,.07) 6.5px 10px,transparent 10.5px),radial-gradient(circle at 72px 74px,transparent 5px,rgba(42,36,32,.07) 5.5px 9px,transparent 9.5px),radial-gradient(circle at 70px 22px,rgba(42,36,32,.07) 3px,transparent 3.5px),radial-gradient(circle at 22px 76px,rgba(42,36,32,.07) 2.5px,transparent 3px),radial-gradient(circle at 48px 50px,rgba(42,36,32,.06) 2px,transparent 2.5px);background-size:96px 96px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:12px;color:#7A6F66;font-weight:500">Turma do Churras</span>
+            <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:700;line-height:1.05">Amigo da Onça 2026</span>
+          </div>
+          <div style="display:flex;gap:6px">
+            <span style="font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid #ECE5DB">20 dez</span>
+            <span style="font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;background:oklch(0.93 0.05 70);color:oklch(0.42 0.1 55)">até R$ 100</span>
+          </div>
+        </div>
+
+        <div onClick="{{ flipA }}" style="perspective:1000px;cursor:pointer;height:150px">
+          <div style="position:relative;height:100%;transition:transform .8s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d;transform:{{ rotA }}">
+            <div style="position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;background:#fff;border:1px solid #ECE5DB;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px">
+              <span style="font-size:13px;color:#7A6F66">Seu amigo da onça é…</span>
+              <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:700">Toque para revelar</span>
+            </div>
+            <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);border-radius:18px;background:oklch(0.93 0.05 70);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px">
+              <span style="font-size:13px;color:oklch(0.42 0.1 55)">Você tirou</span>
+              <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:700;color:#2A2420">Marina</span>
+              <span style="font-size:12px;color:oklch(0.42 0.1 55)">3 itens na lista de desejos</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2px;background:#fff;border-radius:16px;border:1px solid #ECE5DB;padding:6px">
+          <sc-for list="{{ people }}" as="p" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:12px;padding:10px;border-radius:12px;transition:background .3s ease" style-hover="background:#F6F1EA">
+              <span style="width:32px;height:32px;border-radius:50%;background:#EFE7DC;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">{{ p.ini }}</span>
+              <span style="flex:1;font-size:14px;font-weight:500">{{ p.name }}</span>
+              <span style="font-size:11px;font-weight:600;color:#7A6F66">{{ p.status }}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button style="font:600 14px 'Instrument Sans';border:0;border-radius:999px;padding:12px 20px;background:#2A2420;color:#FAF7F2;cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s" style-hover="transform:translateY(-2px);box-shadow:0 10px 20px -10px rgba(42,36,32,.6)" style-active="transform:scale(.97)">Sortear agora</button>
+          <button style="font:600 14px 'Instrument Sans';border:1px solid #DDD3C6;border-radius:999px;padding:12px 20px;background:#fff;color:#2A2420;cursor:pointer;transition:all .35s cubic-bezier(.2,.8,.2,1)" style-hover="border-color:#2A2420" style-active="transform:scale(.97)">Convidar</button>
+          <button style="font:600 14px 'Instrument Sans';border:0;border-radius:999px;padding:12px 16px;background:transparent;color:oklch(0.5 0.12 55);cursor:pointer">Ver regras</button>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="height:110px;border-radius:16px;background-color:#FAF7F2;background-image:radial-gradient(circle at 24px 28px,rgba(120,80,40,.05) 0 6px,transparent 6.5px),radial-gradient(circle at 24px 28px,transparent 6px,rgba(42,36,32,.07) 6.5px 10px,transparent 10.5px),radial-gradient(circle at 72px 74px,transparent 5px,rgba(42,36,32,.07) 5.5px 9px,transparent 9.5px),radial-gradient(circle at 70px 22px,rgba(42,36,32,.07) 3px,transparent 3.5px),radial-gradient(circle at 22px 76px,rgba(42,36,32,.07) 2.5px,transparent 3px);background-size:96px 96px;background-position:0 0;transition:background-position 1.4s cubic-bezier(.2,.8,.2,1),background-color .6s;display:flex;align-items:flex-end;padding:12px;box-sizing:border-box" style-hover="background-position:48px 24px;background-color:#F3EBDF">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7A6F66">textura · hover desliza</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;justify-content:center">
+          <div style="display:flex;gap:6px">
+            <span style="width:28px;height:28px;border-radius:8px;background:#FAF7F2;border:1px solid #E5DDD2"></span>
+            <span style="width:28px;height:28px;border-radius:8px;background:#2A2420"></span>
+            <span style="width:28px;height:28px;border-radius:8px;background:oklch(0.68 0.13 65)"></span>
+            <span style="width:28px;height:28px;border-radius:8px;background:oklch(0.93 0.05 70)"></span>
+          </div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7A6F66">Bricolage Grotesque + Instrument Sans</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1b -->
+    <div id="1b" style="width:540px;display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#2A2420;color:#FAF7F2;padding:4px 8px;border-radius:6px">1b</span>
+        <span style="font-family:'Familjen Grotesk',sans-serif;font-size:22px;font-weight:700">Pelagem Recortada</span>
+      </div>
+      <p style="margin:0;font-size:14px;line-height:1.55;color:#5A5048;text-wrap:pretty">Fundo limpo; a estampa em cor plena aparece só dentro de formas: anéis de avatar, faixa do card revelado, preenchimento do botão no hover. Alto impacto em doses pequenas, texto sempre em área lisa.</p>
+
+      <div style="background:#F4F1EA;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:20px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 20px 40px -24px rgba(60,40,20,.25)">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="width:44px;height:44px;border-radius:14px;background-color:#E2AE62;background-image:radial-gradient(circle at 12px 14px,#B9782F 0 3px,transparent 3.5px),radial-gradient(circle at 12px 14px,transparent 3px,#3A2A1C 3.5px 5.5px,transparent 6px),radial-gradient(circle at 34px 32px,transparent 2.5px,#3A2A1C 3px 5px,transparent 5.5px),radial-gradient(circle at 34px 10px,#3A2A1C 1.8px,transparent 2.2px),radial-gradient(circle at 10px 36px,#3A2A1C 1.5px,transparent 2px);background-size:44px 44px"></span>
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <span style="font-family:'Familjen Grotesk',sans-serif;font-size:24px;font-weight:700;line-height:1.05;color:#1D1B18">Amigo da Onça 2026</span>
+              <span style="font-size:12px;color:#6E665D">Turma do Churras · 20 dez · até R$ 100</span>
+            </div>
+          </div>
+        </div>
+
+        <div onClick="{{ flipB }}" style="perspective:1000px;cursor:pointer;height:150px">
+          <div style="position:relative;height:100%;transition:transform .8s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d;transform:{{ rotB }}">
+            <div style="position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;background:#1D1B18;color:#F4F1EA;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px">
+              <span style="font-size:13px;opacity:.75">Seu amigo da onça é…</span>
+              <span style="font-family:'Familjen Grotesk',sans-serif;font-size:22px;font-weight:700">Toque para revelar</span>
+            </div>
+            <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);border-radius:18px;overflow:hidden;background:#fff;display:grid;grid-template-columns:110px 1fr">
+              <div style="background-color:#E2AE62;background-image:radial-gradient(circle at 24px 28px,#B9782F 0 6px,transparent 6.5px),radial-gradient(circle at 24px 28px,transparent 6px,#3A2A1C 6.5px 10px,transparent 10.5px),radial-gradient(circle at 72px 74px,#B9782F 0 5px,transparent 5.5px),radial-gradient(circle at 72px 74px,transparent 5px,#3A2A1C 5.5px 9px,transparent 9.5px),radial-gradient(circle at 70px 22px,#3A2A1C 3px,transparent 3.5px),radial-gradient(circle at 22px 76px,#3A2A1C 2.5px,transparent 3px),radial-gradient(circle at 48px 50px,#3A2A1C 2px,transparent 2.5px);background-size:96px 96px"></div>
+              <div style="display:flex;flex-direction:column;justify-content:center;gap:4px;padding:0 22px">
+                <span style="font-size:13px;color:#6E665D">Você tirou</span>
+                <span style="font-family:'Familjen Grotesk',sans-serif;font-size:36px;font-weight:700;color:#1D1B18">Marina</span>
+                <span style="font-size:12px;color:oklch(0.5 0.14 45);font-weight:600">Ver lista de desejos →</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <sc-for list="{{ people }}" as="p" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:12px;padding:10px;border-radius:12px;border-bottom:1px solid #E6E0D5;transition:transform .35s cubic-bezier(.2,.8,.2,1)" style-hover="transform:translateX(4px)">
+              <span style="width:36px;height:36px;border-radius:50%;padding:2px;box-sizing:border-box;background-color:#E2AE62;background-image:radial-gradient(circle at 8px 9px,#3A2A1C 2px,transparent 2.5px),radial-gradient(circle at 26px 24px,#3A2A1C 2.5px,transparent 3px),radial-gradient(circle at 24px 8px,#3A2A1C 1.5px,transparent 2px),radial-gradient(circle at 8px 28px,#3A2A1C 1.8px,transparent 2.2px);background-size:36px 36px;display:flex">
+                <span style="flex:1;border-radius:50%;background:#F4F1EA;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">{{ p.ini }}</span>
+              </span>
+              <span style="flex:1;font-size:14px;font-weight:500">{{ p.name }}</span>
+              <span style="font-size:11px;font-weight:600;color:#6E665D">{{ p.status }}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button style="font:700 14px 'Familjen Grotesk';border:0;border-radius:12px;padding:13px 20px;cursor:pointer;color:#F4F1EA;background-color:#1D1B18;background-image:radial-gradient(circle at 24px 28px,transparent 6px,rgba(226,174,98,0) 6.5px 10px,transparent 10.5px);background-size:96px 96px;transition:background-color .5s cubic-bezier(.2,.8,.2,1),color .4s,transform .35s cubic-bezier(.2,.8,.2,1)" style-hover="background-color:oklch(0.62 0.14 45);transform:translateY(-2px)" style-active="transform:scale(.97)">Sortear agora</button>
+          <button style="font:700 14px 'Familjen Grotesk';border:1.5px solid #1D1B18;border-radius:12px;padding:12px 20px;background:transparent;color:#1D1B18;cursor:pointer;transition:all .35s cubic-bezier(.2,.8,.2,1)" style-hover="background:#1D1B18;color:#F4F1EA" style-active="transform:scale(.97)">Convidar</button>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="height:110px;border-radius:16px;background-color:#E2AE62;background-image:radial-gradient(circle at 24px 28px,#B9782F 0 6px,transparent 6.5px),radial-gradient(circle at 24px 28px,transparent 6px,#3A2A1C 6.5px 10px,transparent 10.5px),radial-gradient(circle at 72px 74px,#B9782F 0 5px,transparent 5.5px),radial-gradient(circle at 72px 74px,transparent 5px,#3A2A1C 5.5px 9px,transparent 9.5px),radial-gradient(circle at 70px 22px,#3A2A1C 3px,transparent 3.5px),radial-gradient(circle at 22px 76px,#3A2A1C 2.5px,transparent 3px),radial-gradient(circle at 48px 50px,#3A2A1C 2px,transparent 2.5px);background-size:96px 96px;transition:background-size 1s cubic-bezier(.2,.8,.2,1);display:flex;align-items:flex-end;padding:12px;box-sizing:border-box" style-hover="background-size:120px 120px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#1D1B18;background:#F4F1EA;padding:3px 6px;border-radius:4px">textura plena · só em formas</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;justify-content:center">
+          <div style="display:flex;gap:6px">
+            <span style="width:28px;height:28px;border-radius:8px;background:#F4F1EA;border:1px solid #E0D9CD"></span>
+            <span style="width:28px;height:28px;border-radius:8px;background:#1D1B18"></span>
+            <span style="width:28px;height:28px;border-radius:8px;background:#E2AE62"></span>
+            <span style="width:28px;height:28px;border-radius:8px;background:oklch(0.62 0.14 45)"></span>
+          </div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7A6F66">Familjen Grotesk + Instrument Sans</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1c -->
+    <div id="1c" style="width:540px;display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#2A2420;color:#FAF7F2;padding:4px 8px;border-radius:6px">1c</span>
+        <span style="font-family:'Sora',sans-serif;font-size:22px;font-weight:700">Noite na Mata</span>
+      </div>
+      <p style="margin:0;font-size:14px;line-height:1.55;color:#5A5048;text-wrap:pretty">Modo escuro quente, rosetas tom-sobre-tom quase invisíveis — aparecem com a luz. Interações com brilho dourado que segue o elemento. Clima de festa noturna; legibilidade garantida por superfícies lisas elevadas.</p>
+
+      <div style="background-color:#161412;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:20px;color:#F2EEE8;box-shadow:0 20px 40px -20px rgba(0,0,0,.5);background-image:radial-gradient(circle at 24px 28px,transparent 6px,rgba(255,236,210,.045) 6.5px 10px,transparent 10.5px),radial-gradient(circle at 72px 74px,transparent 5px,rgba(255,236,210,.045) 5.5px 9px,transparent 9.5px),radial-gradient(circle at 70px 22px,rgba(255,236,210,.045) 3px,transparent 3.5px),radial-gradient(circle at 22px 76px,rgba(255,236,210,.045) 2.5px,transparent 3px);background-size:96px 96px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:12px;color:#A89E92">Turma do Churras</span>
+            <span style="font-family:'Sora',sans-serif;font-size:26px;font-weight:700;line-height:1.1">Amigo da Onça 2026</span>
+          </div>
+          <span style="font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.06);color:oklch(0.82 0.12 80)">20 dez · R$ 100</span>
+        </div>
+
+        <div onClick="{{ flipC }}" style="perspective:1000px;cursor:pointer;height:150px">
+          <div style="position:relative;height:100%;transition:transform .8s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d;transform:{{ rotC }}">
+            <div style="position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;background:#211E1B;border:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transition:box-shadow .5s" style-hover="box-shadow:0 0 0 1px oklch(0.78 0.12 80 / .5),0 0 40px -6px oklch(0.78 0.12 80 / .45)">
+              <span style="font-size:13px;color:#A89E92">Seu amigo da onça é…</span>
+              <span style="font-family:'Sora',sans-serif;font-size:20px;font-weight:600">Toque para revelar</span>
+            </div>
+            <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);border-radius:18px;background:radial-gradient(120% 120% at 50% 0%,#3A2F22,#211E1B);border:1px solid oklch(0.78 0.12 80 / .4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px">
+              <span style="font-size:13px;color:#A89E92">Você tirou</span>
+              <span style="font-family:'Sora',sans-serif;font-size:36px;font-weight:700;color:oklch(0.85 0.12 80)">Marina</span>
+              <span style="font-size:12px;color:#A89E92">3 itens na lista de desejos</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <sc-for list="{{ people }}" as="p" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;background:#201D1A;transition:background .3s,transform .35s cubic-bezier(.2,.8,.2,1)" style-hover="background:#29251F;transform:scale(1.01)">
+              <span style="width:32px;height:32px;border-radius:50%;background:#332D26;color:oklch(0.85 0.12 80);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">{{ p.ini }}</span>
+              <span style="flex:1;font-size:14px;font-weight:500">{{ p.name }}</span>
+              <span style="font-size:11px;font-weight:600;color:#A89E92">{{ p.status }}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button style="font:600 14px 'Sora';border:0;border-radius:999px;padding:12px 22px;background:oklch(0.8 0.12 80);color:#161412;cursor:pointer;transition:box-shadow .5s cubic-bezier(.2,.8,.2,1),transform .35s cubic-bezier(.2,.8,.2,1)" style-hover="box-shadow:0 0 32px -4px oklch(0.8 0.12 80 / .7);transform:translateY(-2px)" style-active="transform:scale(.97)">Sortear agora</button>
+          <button style="font:600 14px 'Sora';border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:12px 20px;background:transparent;color:#F2EEE8;cursor:pointer;transition:all .35s" style-hover="background:rgba(255,255,255,.06)" style-active="transform:scale(.97)">Convidar</button>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="height:110px;border-radius:16px;background-color:#161412;background-image:radial-gradient(circle at 24px 28px,transparent 6px,rgba(255,236,210,.06) 6.5px 10px,transparent 10.5px),radial-gradient(circle at 72px 74px,transparent 5px,rgba(255,236,210,.06) 5.5px 9px,transparent 9.5px),radial-gradient(circle at 70px 22px,rgba(255,236,210,.06) 3px,transparent 3.5px),radial-gradient(circle at 22px 76px,rgba(255,236,210,.06) 2.5px,transparent 3px);background-size:96px 96px;transition:background-color .8s;display:flex;align-items:flex-end;padding:12px;box-sizing:border-box" style-hover="background-color:#2A231B">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#A89E92">tom-sobre-tom · hover ilumina</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;justify-content:center">
+          <div style="display:flex;gap:6px">
+            <span style="width:28px;height:28px;border-radius:8px;background:#161412"></span>
+            <span style="width:28px;height:28px;border-radius:8px;background:#201D1A"></span>
+            <span style="width:28px;height:28px;border-radius:8px;background:#F2EEE8;border:1px solid #DDD"></span>
+            <span style="width:28px;height:28px;border-radius:8px;background:oklch(0.8 0.12 80)"></span>
+          </div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7A6F66">Sora + Instrument Sans</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="max-width:760px;font-size:14px;line-height:1.55;color:#5A5048">
+    <strong style="color:#2A2420">Comum às três:</strong> curva de movimento <code style="font-family:'JetBrains Mono',monospace;font-size:12px">cubic-bezier(.2,.8,.2,1)</code> (desacelera suave, sem quique), hovers de 300–500ms, clique com leve compressão (0.97), revelação do sorteio em giro 3D. Dá para misturar — ex.: estrutura da <a href="#1a">1a</a> com os anéis de avatar da <a href="#1b">1b</a>.
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { a: false, b: false, c: false, r2a: false, r2b: false, tab: 0, on: true, toast: false, stack: false, texGold: 'none', texNight: 'none', texLine: 'none' };
+  R = { d1: React.createRef(), d2: React.createRef(), d3: React.createRef(), d4: React.createRef(), spot: React.createRef(), list: React.createRef(), mag: React.createRef(), nA: React.createRef(), nB: React.createRef() };
+  spotT = { x: 280, y: 200 }; spotC = { x: 280, y: 200 };
+  R3 = { d5: React.createRef(), d6: React.createRef(), d7: React.createRef(), list3: React.createRef(), n3: React.createRef() };
+  makeTex3(o, seed) {
+    let s = seed * 7919; const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+    const W = 512, c = document.createElement('canvas'); c.width = c.height = W; const g = c.getContext('2d');
+    const wrap = fn => { for (const dx of [-W, 0, W]) for (const dy of [-W, 0, W]) { g.save(); g.translate(dx, dy); fn(); g.restore(); } };
+    g.fillStyle = o.base; g.fillRect(0, 0, W, W);
+    for (let i = 0; i < 14; i++) { const x = rnd() * W, y = rnd() * W, r = 50 + rnd() * 140, col = rnd() < .6 ? o.light : o.dark; wrap(() => { const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, col); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(x - r, y - r, 2 * r, 2 * r); }); }
+    g.lineWidth = 1;
+    for (let i = 0; i < 5000; i++) { const x = rnd() * W, y = rnd() * W, l = 2 + rnd() * 5, a = 1.2 + (rnd() - .5) * .5; g.strokeStyle = rnd() < .5 ? o.fur : o.fur2; g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke(); }
+    const ops = [];
+    const smooth = (P, n = 6) => { const out = [], L = P.length; for (let i = 0; i < L; i++) { const p0 = P[(i - 1 + L) % L], p1 = P[i], p2 = P[(i + 1) % L], p3 = P[(i + 2) % L]; const seg = []; for (let t = 0; t <= n; t++) { const u = t / n, u2 = u * u, u3 = u2 * u; seg.push([0, 1].map(k => .5 * (2 * p1[k] + (-p0[k] + p2[k]) * u + (2 * p0[k] - 5 * p1[k] + 4 * p2[k] - p3[k]) * u2 + (-p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k]) * u3))); } out.push(seg); } return out; };
+    const blobPts = (cx, cy, r, irr, k) => { const P = []; const r0 = rnd() * 6; for (let i = 0; i < k; i++) { const a = r0 + i / k * Math.PI * 2 + (rnd() - .5) * .35, m = r * (1 + (rnd() - .5) * irr); P.push([cx + Math.cos(a) * m, cy + Math.sin(a) * m * (.85 + rnd() * .15)]); } return P; };
+    const fillBlob = (P, col) => { const segs = smooth(P); ops.push(() => { g.beginPath(); segs.forEach((sg, i) => sg.forEach((p, j) => (i === 0 && j === 0) ? g.moveTo(p[0], p[1]) : g.lineTo(p[0], p[1]))); g.closePath(); g.fillStyle = col; g.fill(); }); };
+    const pts = []; let tries = 0;
+    while (pts.length < 44 && tries < 6000) { tries++; const x = rnd() * W, y = rnd() * W, R = 18 + rnd() * 22; let ok = true; for (const p of pts) { let dx = Math.abs(p.x - x), dy = Math.abs(p.y - y); dx = Math.min(dx, W - dx); dy = Math.min(dy, W - dy); if (Math.hypot(dx, dy) < (p.R + R) * 1.12) { ok = false; break; } } if (ok) pts.push({ x, y, R }); }
+    pts.forEach(({ x, y, R }) => {
+      const k = 6 + Math.floor(rnd() * 3), P = blobPts(x, y, R, .32, k);
+      fillBlob(P.map(([px, py]) => [x + (px - x) * .8, y + (py - y) * .8]), o.inner);
+      const nd = rnd() < .8 ? 1 + Math.floor(rnd() * 3) : 0;
+      for (let d = 0; d < nd; d++) { const a = rnd() * 6.28, dd = rnd() * R * .35, rr = R * (.07 + rnd() * .07); fillBlob(blobPts(x + Math.cos(a) * dd, y + Math.sin(a) * dd, rr, .5, 6), o.ring); }
+      const segs = smooth(P), gaps = new Set(); const ng = 1 + Math.floor(rnd() * 3); while (gaps.size < Math.min(ng, k - 2)) gaps.add(Math.floor(rnd() * k));
+      segs.forEach((sg, i) => { if (gaps.has(i)) return; const w = R * (.22 + rnd() * .2); ops.push(() => { g.beginPath(); sg.forEach((p, j) => j ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.lineWidth = w; g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = o.ring; g.stroke(); }); });
+      if (rnd() < .3) { const a = rnd() * 6.28; fillBlob(blobPts(x + Math.cos(a) * R * 1.15, y + Math.sin(a) * R * 1.15, R * .14, .5, 6), o.ring); }
+    });
+    let spots = 0; tries = 0;
+    while (spots < 70 && tries < 3000) { tries++; const x = rnd() * W, y = rnd() * W, r = 2.5 + rnd() * 6; let ok = true; for (const p of pts) { let dx = Math.abs(p.x - x), dy = Math.abs(p.y - y); dx = Math.min(dx, W - dx); dy = Math.min(dy, W - dy); if (Math.hypot(dx, dy) < p.R * 1.35 + r) { ok = false; break; } } if (ok) { spots++; fillBlob(blobPts(x, y, r, .6, 6), o.ring); } }
+    g.filter = 'blur(0.6px)';
+    ops.forEach(op => wrap(op));
+    g.filter = 'none';
+    const b64 = c.toDataURL('image/png').split(',')[1], bin = atob(b64), u8 = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+    return URL.createObjectURL(new Blob([u8], { type: 'image/png' }));
+  }
+  vals3() {
+    const st = this.state;
+    const sel = st.chips3 || ['Café', 'Livros'];
+    const tg = st.tg3 || [true, false];
+    return {
+      ...this.R3, texGold3: st.texGold3 || 'none', texNight3: st.texNight3 || 'none',
+      rot3: st.r3 ? 'rotateY(180deg)' : 'rotateY(0deg)',
+      flip3: () => { const on = !st.r3; this.setState({ r3: on }); this.pop(this.R3.n3, on); },
+      facts: [{ v: '20 dez', k: 'Festa' }, { v: 'R$ 100', k: 'Limite' }, { v: '8', k: 'Pessoas' }],
+      tabs3: ['Turma', 'Desejos', 'Regras'].map((label, i) => ({ label, color: i === (st.tab3 ?? 1) ? '#161412' : '#C9BFB3', go: () => this.setState({ tab3: i }) })),
+      tab3X: `translateX(${(st.tab3 ?? 1) * 100}%)`,
+      chips3: ['Livros', 'Café', 'Vinho', 'Plantas', 'Jogos', 'Cozinha', 'Nada de meias'].map(label => { const on = sel.includes(label); return { label, bg: on ? 'oklch(0.8 0.12 80)' : '#221E19', fg: on ? '#161412' : '#F2EEE8', bd: on ? 'oklch(0.8 0.12 80)' : 'rgba(255,255,255,.07)', tf: on ? 'scale(1.04)' : 'scale(1)', go: () => this.setState({ chips3: on ? sel.filter(x => x !== label) : [...sel, label] }) }; }),
+      toggles3: ['Revelar só no dia da festa', 'Avisar quando tirarem meu nome'].map((label, i) => ({ label, op: tg[i] ? '1' : '0', x: tg[i] ? 'translateX(24px)' : 'translateX(0px)', line: i === 0 ? 'rgba(255,255,255,.06)' : 'transparent', go: () => { const n = [...tg]; n[i] = !n[i]; this.setState({ tg3: n }); } })),
+      save3: () => { clearTimeout(this.tt3); this.setState({ toast3: true }); this.tt3 = setTimeout(() => this.setState({ toast3: false }), 2400); },
+      toast3T: st.toast3 ? 'translateY(0px)' : 'translateY(24px)', toast3O: st.toast3 ? '1' : '0'
+    };
+  }
+  componentDidMount() {
+    {
+      const gold3 = this.makeTex3({ base: '#C98A3A', light: 'rgba(232,184,104,.55)', dark: 'rgba(150,88,32,.35)', inner: '#A8652A', ring: '#1C120A', fur: 'rgba(90,45,10,.12)', fur2: 'rgba(255,225,170,.08)' }, 3);
+      const night3 = this.makeTex3({ base: '#15120E', light: 'rgba(40,31,22,.7)', dark: 'rgba(0,0,0,.4)', inner: '#251C13', ring: '#55412A', fur: 'rgba(255,220,170,.03)', fur2: 'rgba(0,0,0,.2)' }, 9);
+      this.setState({ texGold3: `url(${gold3})`, texNight3: `url(${night3})` });
+      const R3 = this.R3;
+      [[R3.d5, 110000], [R3.d6, 60000], [R3.d7, 110000]].forEach(([r, d]) => r.current && r.current.animate([{ backgroundPosition: '0px 0px' }, { backgroundPosition: '256px 256px' }], { duration: d, iterations: Infinity }));
+      const el = R3.list3.current;
+      if (el) [...el.children].forEach((ch, i) => ch.animate([{ opacity: 0, transform: 'translateY(16px) scale(.98)', filter: 'blur(4px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 750, delay: 300 + i * 90, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'both' }));
+    }
+    const gold = this.makeTex({ base: '#D59B48', light: 'rgba(240,198,120,.7)', inner: '#A8682A', ring: '#24170E', spot: '#24170E', fur: 'rgba(70,35,10,.10)' }, 7);
+    const night = this.makeTex({ base: '#16130F', light: 'rgba(40,32,24,.8)', inner: '#2A2016', ring: '#4A3822', spot: '#3E2F1D', fur: 'rgba(255,220,170,.03)' }, 11);
+    const line = this.makeTex({ base: '#14110E', light: 'rgba(28,23,18,.8)', inner: 'rgba(0,0,0,0)', ring: '#B98838', spot: '#8C6428', fur: 'rgba(255,220,170,.02)' }, 5);
+    this.setState({ texGold: `url(${gold})`, texNight: `url(${night})`, texLine: `url(${line})` });
+    const R = this.R;
+    [[R.d1, 90000], [R.d2, 50000], [R.d3, 120000], [R.d4, 60000]].forEach(([r, d]) => r.current && r.current.animate([{ backgroundPosition: '0px 0px' }, { backgroundPosition: '240px 240px' }], { duration: d, iterations: Infinity }));
+    this.stagger();
+    const loop = () => {
+      const c = this.spotC, t = this.spotT;
+      c.x += (t.x - c.x) * 0.08; c.y += (t.y - c.y) * 0.08;
+      const el = R.spot.current;
+      if (el) { const m = `radial-gradient(220px circle at ${c.x}px ${c.y}px, #000 0%, rgba(0,0,0,.6) 35%, transparent 72%)`; el.style.maskImage = m; el.style.webkitMaskImage = m; }
+      this.raf = requestAnimationFrame(loop);
+    };
+    loop();
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); clearTimeout(this.tt); clearTimeout(this.tt3); }
+  stagger() {
+    const el = this.R.list.current; if (!el) return;
+    [...el.children].forEach((c, i) => c.animate([{ opacity: 0, transform: 'translateY(16px) scale(.98)', filter: 'blur(4px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 750, delay: i * 90, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'both' }));
+  }
+  pop(ref, on) {
+    if (on && ref.current) ref.current.animate([{ transform: 'scale(.6)', opacity: 0, filter: 'blur(8px)' }, { transform: 'scale(1)', opacity: 1, filter: 'blur(0)' }], { duration: 900, delay: 300, easing: 'cubic-bezier(.34,1.56,.64,1)', fill: 'both' });
+  }
+  makeTex(o, seed) {
+    let s = seed * 9973; const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+    const W = 480, c = document.createElement('canvas'); c.width = c.height = W; const g = c.getContext('2d');
+    g.fillStyle = o.base; g.fillRect(0, 0, W, W);
+    const wrap = fn => { for (const dx of [-W, 0, W]) for (const dy of [-W, 0, W]) { g.save(); g.translate(dx, dy); fn(); g.restore(); } };
+    for (let i = 0; i < 10; i++) { const x = rnd() * W, y = rnd() * W, r = 60 + rnd() * 120; wrap(() => { const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, o.light); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(x - r, y - r, 2 * r, 2 * r); }); }
+    g.strokeStyle = o.fur; g.lineWidth = 1;
+    for (let i = 0; i < 2600; i++) { const x = rnd() * W, y = rnd() * W, l = 3 + rnd() * 5, a = 0.9 + (rnd() - .5) * .6; g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke(); }
+    const blob = (cx, cy, rx, ry, rot, irr, k = 9) => { const p = []; for (let i = 0; i < k; i++) { const a = i / k * Math.PI * 2, m = 1 + (rnd() - .5) * irr, x = Math.cos(a) * rx * m, y = Math.sin(a) * ry * m; p.push([cx + x * Math.cos(rot) - y * Math.sin(rot), cy + x * Math.sin(rot) + y * Math.cos(rot)]); } return p; };
+    const draw = (p, fill) => wrap(() => { const n = p.length, mid = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]; g.beginPath(); const m0 = mid(p[0], p[1]); g.moveTo(m0[0], m0[1]); for (let i = 1; i <= n; i++) { const a = p[i % n], mm = mid(a, p[(i + 1) % n]); g.quadraticCurveTo(a[0], a[1], mm[0], mm[1]); } g.closePath(); g.fillStyle = fill; g.fill(); });
+    const N = 5, cell = W / N;
+    for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
+      const cx = (i + .5 + (j % 2) * .5) * cell + (rnd() - .5) * cell * .35, cy = (j + .5) * cell + (rnd() - .5) * cell * .35, R = cell * (.26 + rnd() * .1), sq = .72 + rnd() * .3;
+      draw(blob(cx, cy, R * .62, R * .62 * sq, rnd() * Math.PI, .45), o.inner);
+      const n = 3 + Math.floor(rnd() * 3); let a = rnd() * Math.PI * 2;
+      for (let f = 0; f < n; f++) {
+        const span = (Math.PI * 2 / n) * (.55 + rnd() * .3), am = a + span / 2, d = R * (.85 + rnd() * .12);
+        draw(blob(cx + Math.cos(am) * d, cy + Math.sin(am) * d * sq, span * R * .5, R * (.15 + rnd() * .12), am + Math.PI / 2, .55, 8), o.ring);
+        a += Math.PI * 2 / n + (rnd() - .5) * .3;
+      }
+      if (rnd() < .35) draw(blob(cx + (rnd() - .5) * R * .3, cy + (rnd() - .5) * R * .3, R * .1, R * .08, rnd() * 3, .6, 7), o.ring);
+    }
+    for (let k = 0; k < 26; k++) { const r = cell * (.03 + rnd() * .06); draw(blob(rnd() * W, rnd() * W, r, r * (.6 + rnd() * .5), rnd() * 3, .6, 7), o.spot); }
+    const b64 = c.toDataURL('image/png').split(',')[1], bin = atob(b64), u8 = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+    return URL.createObjectURL(new Blob([u8], { type: 'image/png' }));
+  }
+  vals2() {
+    const st = this.state, R = this.R;
+    const rel = e => { const b = e.currentTarget.getBoundingClientRect(), k = b.width / e.currentTarget.offsetWidth || 1; return { x: (e.clientX - b.left) / k, y: (e.clientY - b.top) / k, w: b.width / k, h: b.height / k }; };
+    return {
+      ...R, texGold: st.texGold, texNight: st.texNight, texLine: st.texLine,
+      rot2a: st.r2a ? 'rotateY(180deg)' : 'rotateY(0deg)', rot2b: st.r2b ? 'rotateY(180deg)' : 'rotateY(0deg)',
+      flip2a: () => { const on = !st.r2a; this.setState({ r2a: on }); this.pop(R.nA, on); },
+      flip2b: () => { const on = !st.r2b; this.setState({ r2b: on }); this.pop(R.nB, on); },
+      replay: () => this.stagger(),
+      onSpot: e => { const p = rel(e); this.spotT = { x: p.x, y: p.y }; },
+      offSpot: () => { this.spotT = { x: 280, y: 200 }; },
+      stack: ['MA', 'RB', 'JL', '+5'].map((ini, i) => ({ ini, ml: i === 0 ? '0px' : (st.stack ? '6px' : '-10px') })),
+      stackIn: () => this.setState({ stack: true }), stackOut: () => this.setState({ stack: false }),
+      tabs: ['Turma', 'Desejos', 'Regras'].map((label, i) => ({ label, color: i === st.tab ? '#161412' : '#C9BFB3', go: () => this.setState({ tab: i }) })),
+      tabX: `translateX(${st.tab * 76}px)`,
+      toggle: () => this.setState(s => ({ on: !s.on })),
+      trackBg: st.on ? 'oklch(0.8 0.12 80)' : '#3A342D', knobX: st.on ? 'translateX(22px)' : 'translateX(0px)',
+      chips: ['Livros', 'Café', 'Vinho', 'Nada de meias'],
+      showToast: () => { clearTimeout(this.tt); this.setState({ toast: true }); this.tt = setTimeout(() => this.setState({ toast: false }), 2400); },
+      toastT: st.toast ? 'translateY(0px)' : 'translateY(20px)', toastO: st.toast ? '1' : '0',
+      magMove: e => { const p = rel(e), el = R.mag.current; if (el) el.style.transform = `translate(${(p.x - p.w / 2) * .25}px, ${(p.y - p.h / 2) * .35}px)`; },
+      magLeave: () => { const el = R.mag.current; if (el) el.style.transform = ''; }
+    };
+  }
+  renderVals() {
+    const r = k => (this.state[k] ? 'rotateY(180deg)' : 'rotateY(0deg)');
+    const t = k => () => this.setState(s => ({ [k]: !s[k] }));
+    return {
+      people: [
+        { ini: 'MA', name: 'Marina Alves', status: 'Confirmada' },
+        { ini: 'RB', name: 'Rafael Brito', status: 'Confirmado' },
+        { ini: 'JL', name: 'Júlia Lemos', status: 'Pendente' }
+      ],
+      rotA: r('a'), rotB: r('b'), rotC: r('c'),
+      flipA: t('a'), flipB: t('b'), flipC: t('c'),
+      ...this.vals2(),
+      ...this.vals3()
+    };
+  }
+}
+</script>
+</body>
+</html>

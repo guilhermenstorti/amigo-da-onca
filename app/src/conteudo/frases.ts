@@ -1,0 +1,25 @@
+// Frases do carrossel do Início. Editem à vontade: uma por linha, curtas.
+export const frases = [
+  'Presente de onça não tem nota fiscal.',
+  'Sola já esvaziou o lixo do carro dele numa nova embalagem para este ano!',
+  'Quem vai ganhar a foto da bunda do Hugo hoje?',
+  'Quem dá meia ganha olhar de julgamento.',
+  'A embalagem é metade da nota. A outra metade é a cara de quem abre.',
+  'Uma vez ouvi dizer que deram um banquinho portátil de presente, dizem as lendas que nunca mais um presente tão bom foi visto por aqui',
+  'Roubar presente é tradição. Chorar também.',
+  'Desconfie de quem diz "é só uma lembrancinha".',
+  '"Jamais cobice o lucro do próximo." ~ Empreendedores católicos, cap 1.',
+  'Se ninguém entendeu o presente, você tá no caminho certo.',
+  'A dica tem que ser boa. O presente, nem tanto.',
+  'Não fique triste se alguem esvaziar o ralo da pia numa caixa e te der de presente este ano, poderia ser pior!',
+  'Amigo da onça de verdade guarda a sacolinha.',
+  'Ninguém sai da festa com o presente que trouxe. Ou sai?',
+  'Espera!!! Esse aí é o SOLA RATO??!',
+  'Votar em si mesmo é permitido. Ser julgado, também.',
+  'Até hoje fazem vista grossa para a caneca do Otávio...',
+  'Todo ano alguém jura que vai caprichar. Todo ano.',
+  'Gente, sem brigas pelas bolhas de sabão!',
+  'Nesta casa servimos à Tigrínea e Zé Felipe! Sério, tem até camisa!',
+  'HUGO, DESCE DA GELADEIRA!!', 
+  'Hoje tem um 9zinho? =9'
+];
