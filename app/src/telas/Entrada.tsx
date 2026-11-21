@@ -33,7 +33,7 @@ export function TelaPalavraChave() {
   };
 
   return (
-    <Tela titulo="Amigo da Onça" subtitulo="O app da turma para o sorteio e o Grammy dos presentes." semPerfil rodape={<Botao onClick={entrar}>Entrar</Botao>}>
+    <Tela titulo="Amigo da Onça do Bolsa" subtitulo="O app do Bolsa para o sorteio e votação dos presentes premiados." semPerfil rodape={<Botao onClick={entrar}>Entrar</Botao>}>
       <form
         class="vidro cartao formulario"
         onSubmit={(e) => {

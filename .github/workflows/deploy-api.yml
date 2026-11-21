@@ -37,7 +37,16 @@ jobs:
       - name: Migrações do banco (D1)
         run: npx wrangler d1 migrations apply DB --remote
       - name: Deploy do Worker
-        run: npx wrangler deploy
+        # No primeiro deploy, a Cloudflare às vezes responde "This Worker does not exist" (código 10007)
+        # logo depois do upload: o Worker foi criado, mas ainda não aparece para a leitura seguinte.
+        # Tentar de novo resolve; o deploy é idempotente.
+        run: |
+          for tentativa in 1 2 3; do
+            npx wrangler deploy && exit 0
+            echo "::warning::Deploy falhou (tentativa $tentativa de 3). Tentando de novo em 20 s..."
+            sleep 20
+          done
+          exit 1
       - name: Secrets do Worker (vindas das secrets do GitHub)
         env:
           PALAVRA_CHAVE: ${{ secrets.PALAVRA_CHAVE }}
