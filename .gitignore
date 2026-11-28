@@ -4,7 +4,7 @@ dist/
 .dev.vars
 *.log
 
-# Fotos dos participantes: ficam só na máquina local (o repo é público)
+# Fotos (perfis em assets/img/profile/, fotos das festas em assets/img/hof/): ficam só na máquina local (o repo é público)
 assets/img/
 scripts/saida/
 

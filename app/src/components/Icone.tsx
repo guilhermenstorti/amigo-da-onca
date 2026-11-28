@@ -14,6 +14,8 @@ const caminhos = {
   mais: 'M12 5v14M5 12h14',
   subir: 'M12 19V5M6 11l6-6 6 6',
   descer: 'M12 5v14M6 13l6 6 6-6',
+  fotos: 'M4 5h16v14H4zM4 16l4.5-4.5L12 15l2.5-2.5L20 18M15.5 9h.01',
+  externo: 'M14 4h6v6M20 4l-9 9M18 14v6H4V6h6',
 } as const;
 
 export type NomeIcone = keyof typeof caminhos;

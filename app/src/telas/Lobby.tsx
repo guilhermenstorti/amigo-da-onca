@@ -6,10 +6,11 @@ import { Icone } from '../components/Icone';
 import { Tela } from '../components/Tela';
 import { acaoAdmin, entrarNoLobby } from '../lib/acoes';
 import { estado, pessoa, usarModoRapido } from '../lib/estado';
-import { ir } from '../lib/rota';
+import { descartarHall, ir } from '../lib/rota';
 import { alternarMudo, destravarSom, mudo, prepararSom, tocarSomDaOnca } from '../lib/som';
 import { listaNomes, reduzirMovimento, useTelaAcesa } from '../lib/ui';
 import { TelaCarregando } from './Entrada';
+import { ChamadaHall } from './Hall';
 
 const DEPOIS_DO_SORTEIO = ['troca', 'votacao', 'revelacao', 'encerrada'];
 
@@ -31,9 +32,12 @@ function Lobby({ e }: { e: Estado }) {
   useEffect(prepararSom, []);
   useTelaAcesa(dentro && fase === 'lobby');
 
-  // O sorteio aconteceu: cada celular do lobby vai sozinho para a roleta.
+  // O sorteio aconteceu: cada celular do lobby vai sozinho para a roleta (mesmo com o Hall da Fama aberto por cima).
   useEffect(() => {
-    if (dentro && DEPOIS_DO_SORTEIO.includes(fase)) ir('sorteio');
+    if (dentro && DEPOIS_DO_SORTEIO.includes(fase)) {
+      descartarHall();
+      ir('sorteio');
+    }
   }, [dentro, fase]);
 
   // Chegadas: compara a lista de presentes com a anterior e enfileira as animações.
@@ -122,6 +126,8 @@ function Lobby({ e }: { e: Estado }) {
           );
         })}
       </ul>
+
+      {((fase === 'lobby' && dentro) || fase === 'preparacao') && <ChamadaHall />}
 
       <p class="sr-only" aria-live="polite">
         {anuncio}

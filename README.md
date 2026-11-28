@@ -44,7 +44,18 @@ Inclui 10 mil sorteios (sem ninguém tirar a si mesmo, sempre 1:1) e uma simula�
 
 ## Fotos
 
-Os PNGs originais ficam em `assets/img/` (nome do arquivo = id da pessoa) e **não vão para o git**: o repositório é público. `npm run fotos` converte para WebP (256 e 512 px) e grava no banco local; `npm run fotos -- --remote` grava no banco de produção (com `$env:DATABASE_ID_CLOUDFLARE` definido). Depois disso, fotos novas podem ser enviadas pelo Controle → Pessoas.
+Os PNGs originais ficam em `assets/img/profile/` (nome do arquivo = id da pessoa) e **não vão para o git**: o repositório é público (a pasta `assets/img/` inteira está no `.gitignore`). `npm run fotos` converte para WebP (256 e 512 px) e grava no banco local; `npm run fotos -- --remote` grava no banco de produção (com `$env:DATABASE_ID_CLOUDFLARE` definido). Depois disso, fotos novas podem ser enviadas pelo Controle → Pessoas.
+
+## Hall da Fama
+
+Cada ano tem a sua **sala de troféus** (um pin por categoria, com o vencedor e a foto) e os **Highlights** (link para a pasta de fotos da festa).
+
+- **Pins:** desenhados em SVG em `app/src/components/Pin.tsx`, um formato e um símbolo por categoria. Categoria nova sem desenho usa a estrela.
+- **Edição atual:** cada categoria revelada entra na sala de troféus na hora. As que ainda não foram reveladas aparecem só como sombra, e o servidor não entrega o vencedor antes da hora.
+- **Anos sem premiação** (antes de 2026): a sala aparece vazia, com a sombra de cada pin e o aviso "Ano sem premiação". Cadastre em Controle → Hall → "Cadastrar um ano", com a chave "Teve premiação" desligada.
+- **Link das fotos:** em Controle → Hall (anos passados) ou Controle → Edição (ano atual). O link fica **só no banco** e só sai para quem tem a palavra-chave. Nunca coloque esses links no código: o repositório é público.
+- **Apagar:** "Apagar este ano" (Controle → Hall) e "Recomeçar edição" apagam também a sala de troféus do ano.
+- **No lobby e no Início**, enquanto a turma espera, um cartão chama para o Hall. Ele abre por cima da tela: no lobby a pessoa continua lá, com a presença atualizando, e vai sozinha para a roleta quando o sorteio acontece.
 
 ## Publicar (uma vez só)
 

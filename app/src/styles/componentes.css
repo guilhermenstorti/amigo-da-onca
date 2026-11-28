@@ -215,6 +215,10 @@ html.oculto .tela__fundo {
   transform: scale(0.96);
 }
 
+a.botao {
+  text-decoration: none;
+}
+
 .botao--primario {
   width: 100%;
   min-height: 56px;
@@ -635,6 +639,12 @@ input[type='date'].campo {
   animation: folha-sobe 0.45s var(--mola-leve);
 }
 
+/* Folha de altura inteira (Hall da Fama): a tela de baixo aparece só numa fresta no topo. */
+.folha--cheia {
+  height: calc(100dvh - max(16px, env(safe-area-inset-top)));
+  max-height: none;
+}
+
 .folha::backdrop {
   background: rgba(10, 8, 6, 0.6);
   -webkit-backdrop-filter: blur(4px);
@@ -752,6 +762,7 @@ input[type='date'].campo {
 }
 
 .carrossel__pausa {
+  position: relative;
   width: 44px;
   height: 44px;
   flex: none;
@@ -761,6 +772,55 @@ input[type='date'].campo {
   border-radius: 50%;
   background: var(--noite-600);
   color: var(--areia-300);
+}
+
+/* A borda do botão é o relógio da frase: esvazia em sentido horário, a partir do topo. */
+.carrossel__anel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.carrossel__trilho,
+.carrossel__tempo {
+  fill: none;
+  stroke-width: 3;
+}
+
+.carrossel__trilho {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+.carrossel__tempo {
+  stroke: var(--ouro-400);
+  stroke-linecap: round;
+  /* Comprimento do círculo: 2π × 20,5 */
+  stroke-dasharray: 128.81;
+  animation: anel-esvazia var(--tempo, 8s) linear both;
+  transition:
+    stroke 0.2s,
+    opacity 0.2s;
+}
+
+.carrossel__pausa--parado .carrossel__tempo {
+  stroke: var(--areia-300);
+  opacity: 0.5;
+}
+
+@keyframes anel-esvazia {
+  to {
+    stroke-dashoffset: -128.81;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* É o relógio da frase, não enfeite: mantém o tempo de verdade (o fim da animação troca a frase). */
+  .carrossel__tempo {
+    animation-duration: var(--tempo, 8s) !important;
+  }
 }
 
 /* ---------- Selos ---------- */

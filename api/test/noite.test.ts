@@ -84,6 +84,43 @@ describe('a noite do amigo da onça', () => {
     expect(outro.dados.admin).toBeUndefined();
   });
 
+  it('Hall antes da festa: o ano atual só com as sombras dos pins', async () => {
+    const { dados: hall } = await chamar<AnoHall[]>(tokens.ju, 'GET', '/hall');
+    expect(hall).toHaveLength(1);
+    expect(hall[0]).toMatchObject({ ano: 2026, atual: true, premiacao: 'em-breve', fotosUrl: null });
+    expect(hall[0].pins.map((p) => p.id)).toEqual(['mais-util', 'mais-inutil', 'revelacao', 'mais-criativo', 'melhor-embalagem', 'presente-do-ano']);
+    expect(hall[0].pins.every((p) => p.vencedores === null)).toBe(true);
+  });
+
+  it('anos sem premiação entram no Hall com o link das fotos', async () => {
+    const link = 'https://drive.google.com/drive/folders/pasta-de-teste';
+    expect((await chamar(tokens.ju, 'PUT', '/admin/hall/2025', { categorias: [], fotosUrl: link })).status).toBe(403);
+    expect((await chamar(tokens.gui, 'PUT', '/admin/hall/2025', { categorias: [], fotosUrl: 'http://inseguro.com' })).status).toBe(400);
+    expect((await chamar(tokens.gui, 'PUT', '/admin/hall/2025', { categorias: [], fotosUrl: 'não é link' })).status).toBe(400);
+    expect((await chamar(tokens.gui, 'PUT', '/admin/hall/2025', { categorias: [], fotosUrl: link })).status).toBe(200);
+    expect((await chamar(tokens.gui, 'PUT', '/admin/hall/2024', { categorias: [], fotosUrl: link })).status).toBe(200);
+    // O ano atual só passa pelo Hall depois de encerrado.
+    expect((await chamar(tokens.gui, 'PUT', '/admin/hall/2026', { categorias: [] })).status).toBe(409);
+
+    const { dados: hall } = await chamar<AnoHall[]>(tokens.ju, 'GET', '/hall');
+    expect(hall.map((a) => a.ano)).toEqual([2026, 2025, 2024]);
+    expect(hall[1]).toMatchObject({ atual: false, premiacao: 'sem', fotosUrl: link });
+    expect(hall[1].pins).toHaveLength(6);
+    expect(hall[1].pins.every((p) => p.vencedores === null)).toBe(true);
+
+    // Categoria com o nome de uma que já existe usa o mesmo id (e o mesmo pin).
+    expect(
+      (await chamar(tokens.gui, 'PUT', '/admin/hall/2024', { fotosUrl: link, categorias: [{ nome: 'Presente do ano', vencedores: ['isa'] }] })).status,
+    ).toBe(200);
+    const ano2024 = (await chamar<AnoHall[]>(tokens.ju, 'GET', '/hall')).dados.find((a) => a.ano === 2024)!;
+    expect(ano2024).toMatchObject({ premiacao: 'completa', pins: [{ id: 'presente-do-ano', vencedores: [{ id: 'isa', nome: 'Isa' }] }] });
+
+    // Apagar o ano apaga a sala de troféus junto.
+    expect((await chamar(tokens.gui, 'DELETE', '/admin/hall/2024')).status).toBe(200);
+    expect((await chamar<AnoHall[]>(tokens.ju, 'GET', '/hall')).dados.map((a) => a.ano)).toEqual([2026, 2025]);
+    expect(d1('SELECT count(*) AS n FROM resultados WHERE ano = 2024')[0].n).toBe(0);
+  });
+
   it('estado sem mudança responde 204', async () => {
     const e = await chamar<Estado>(tokens.ju, 'GET', '/estado');
     expect((await chamar(tokens.ju, 'GET', `/estado?v=${e.dados.versao}`)).status).toBe(204);
@@ -181,7 +218,19 @@ describe('a noite do amigo da onça', () => {
   });
 
   it('revelação categoria por categoria e Hall da Fama', async () => {
-    for (let k = 0; k < 6; k++) expect((await chamar(tokens.gui, 'POST', '/admin/revelar')).status).toBe(200);
+    const pinsDe2026 = async () => (await chamar<AnoHall[]>(tokens.ju, 'GET', '/hall')).dados.find((a) => a.ano === 2026)!;
+    // Votação apurada, nada revelado: o Hall não entrega nenhum vencedor.
+    let ano = await pinsDe2026();
+    expect(ano.premiacao).toBe('revelando');
+    expect(ano.pins.every((p) => p.vencedores === null)).toBe(true);
+
+    // Cada categoria revelada vai direto para a sala de troféus; as outras continuam em segredo.
+    expect((await chamar(tokens.gui, 'POST', '/admin/revelar')).status).toBe(200);
+    ano = await pinsDe2026();
+    expect(ano.pins[0].vencedores?.map((v) => v.id)).toEqual(['maria']);
+    expect(ano.pins.slice(1).every((p) => p.vencedores === null)).toBe(true);
+
+    for (let k = 1; k < 6; k++) expect((await chamar(tokens.gui, 'POST', '/admin/revelar')).status).toBe(200);
     expect((await chamar(tokens.gui, 'POST', '/admin/revelar')).status).toBe(409);
     const { dados: r } = await chamar<Revelacao>(tokens.ju, 'GET', '/revelacao');
     r.categorias.forEach((cat, k) => {
@@ -190,10 +239,22 @@ describe('a noite do amigo da onça', () => {
       // Justificativas só dos votos ímpares enviados (a Sola não enviou), sem autoria.
       expect(cat.justificativas?.every((j) => /^j-/.test(j))).toBe(true);
     });
+    ano = await pinsDe2026();
+    expect(ano.pins.map((p) => p.vencedores?.map((v) => v.id))).toEqual(r.categorias.map((cat) => cat.vencedores?.map((v) => v.id)));
+
     expect((await chamar(tokens.gui, 'POST', '/admin/encerrar')).status).toBe(200);
-    const hall = await chamar<AnoHall[]>(tokens.ju, 'GET', '/hall');
-    expect(hall.dados[0].ano).toBe(2026);
-    expect(hall.dados[0].categorias).toHaveLength(6);
+    ano = await pinsDe2026();
+    expect(ano).toMatchObject({ premiacao: 'completa', atual: true });
+    expect(ano.pins).toHaveLength(6);
+    expect(ano.pins.every((p) => p.vencedores?.length === 1)).toBe(true);
+
+    // Depois de encerrada, dá para pôr o link das fotos sem mexer nos resultados nem nas justificativas.
+    const justificativas = d1('SELECT count(*) AS n FROM justificativas WHERE ano = 2026')[0].n;
+    const link = 'https://drive.google.com/drive/folders/fotos-2026';
+    expect((await chamar(tokens.gui, 'PUT', '/admin/hall/2026', { data: null, local: null, fotosUrl: link })).status).toBe(200);
+    expect(d1('SELECT count(*) AS n FROM justificativas WHERE ano = 2026')[0].n).toBe(justificativas);
+    expect((await pinsDe2026()).fotosUrl).toBe(link);
+    expect((await pinsDe2026()).pins.every((p) => p.vencedores?.length === 1)).toBe(true);
   });
 
   it('fotos só com URL assinada', async () => {
@@ -225,7 +286,10 @@ describe('a noite do amigo da onça', () => {
     expect(e.lobby.presentes).toEqual([]);
     expect(e.revelacao).toEqual({ reveladas: 0, total: 0 });
     expect(e.eu).toMatchObject({ vinculo: null, tirouAlguem: false, votosEnviados: false });
-    expect((await chamar<AnoHall[]>(tokens.ju, 'GET', '/hall')).dados).toEqual([]);
+    // A sala de troféus de 2026 volta a ficar só com as sombras.
+    const ano2026 = (await chamar<AnoHall[]>(tokens.ju, 'GET', '/hall')).dados.find((a) => a.ano === 2026)!;
+    expect(ano2026.premiacao).toBe('em-breve');
+    expect(ano2026.pins.every((p) => p.vencedores === null)).toBe(true);
     const tabelas = ['lobby', 'sorteio', 'votos', 'cedulas', 'resultados', 'justificativas', 'edicao_categorias'];
     const contagem = d1(
       `SELECT ${tabelas.map((t) => `(SELECT count(*) FROM ${t}) AS ${t}`).join(', ')}, (SELECT count(*) FROM categorias WHERE ativa = 1) AS categorias`,

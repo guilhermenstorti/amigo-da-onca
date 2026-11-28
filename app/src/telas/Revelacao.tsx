@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'preact/hooks';
-import type { AnoHall, CategoriaRevelacao, Revelacao } from '../../../api/src/contrato';
+import type { CategoriaRevelacao, Revelacao } from '../../../api/src/contrato';
 import { Avatar } from '../components/Avatar';
 import { Botao, Confirmar } from '../components/Botao';
 import { Tela } from '../components/Tela';
@@ -7,7 +7,7 @@ import { acaoAdmin } from '../lib/acoes';
 import { api, mensagemDe } from '../lib/api';
 import { estado, pessoa, usarModoRapido } from '../lib/estado';
 import { ir } from '../lib/rota';
-import { dataCurta, listaNomes, mostrarToast } from '../lib/ui';
+import { listaNomes, mostrarToast } from '../lib/ui';
 import { TelaCarregando } from './Entrada';
 
 function useRevelacao() {
@@ -150,54 +150,5 @@ export function TelaTelao() {
         )}
       </main>
     </div>
-  );
-}
-
-export function TelaHall() {
-  const [anos, setAnos] = useState<AnoHall[] | null>(null);
-  const [erro, setErro] = useState<string | null>(null);
-  useEffect(() => {
-    api<AnoHall[]>('GET', '/hall')
-      .then(setAnos)
-      .catch((err) => setErro(mensagemDe(err)));
-  }, []);
-
-  return (
-    <Tela titulo="Hall da Fama" subtitulo="Os vencedores de cada ano." voltar>
-      {erro && <p class="erro">{erro}</p>}
-      {!anos && !erro && <p class="legenda centro">Carregando…</p>}
-      {anos?.length === 0 && (
-        <section class="vidro cartao">
-          <p>Ainda ninguém no Hall. A primeira edição encerrada aparece aqui.</p>
-        </section>
-      )}
-      {anos?.map((a) => (
-        <section key={a.ano} class="vidro cartao hall-ano" aria-labelledby={`ano-${a.ano}`}>
-          <header>
-            <h2 id={`ano-${a.ano}`}>{a.ano}</h2>
-            {(a.data || a.local) && <p class="legenda">{[dataCurta(a.data), a.local].filter(Boolean).join(' · ')}</p>}
-          </header>
-          <ul>
-            {a.categorias.map((c) => (
-              <li key={c.id} class="hall-ano__linha">
-                <span class="hall-ano__categoria">{c.nome}</span>
-                <span class="hall-ano__vencedores">
-                  {c.vencedores.length ? (
-                    c.vencedores.map((v) => (
-                      <span key={v.id} class="hall-ano__vencedor">
-                        <Avatar pessoa={pessoa(v.id) ?? { nome: v.nome, foto: null }} tamanho={28} />
-                        {v.nome}
-                      </span>
-                    ))
-                  ) : (
-                    <span class="legenda">—</span>
-                  )}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
-    </Tela>
   );
 }

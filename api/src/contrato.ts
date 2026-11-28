@@ -67,17 +67,53 @@ export interface Revelacao {
   categorias: CategoriaRevelacao[];
 }
 
+export interface VencedorHall {
+  id: string;
+  nome: string;
+  /** URLs assinadas da foto (vem junto porque o vencedor pode nem estar mais ativo). */
+  foto: { p: string; g: string } | null;
+}
+
+export interface PinHall {
+  /** id da categoria (escolhe o desenho do pin). */
+  id: string;
+  nome: string;
+  /** null = só a sombra do pin (ano sem premiação ou categoria ainda em segredo). [] = ninguém levou. */
+  vencedores: VencedorHall[] | null;
+}
+
+/**
+ * 'sem': o ano não teve premiação (antes do app).
+ * 'em-breve': edição atual, a premiação ainda não começou.
+ * 'revelando': edição atual, os pins aparecem conforme cada categoria é revelada.
+ * 'completa': todos os pins entregues.
+ */
+export type PremiacaoHall = 'sem' | 'em-breve' | 'revelando' | 'completa';
+
 export interface AnoHall {
   ano: number;
   data: string | null;
   local: string | null;
-  categorias: { id: string; nome: string; vencedores: { id: string; nome: string }[] }[];
+  atual: boolean;
+  premiacao: PremiacaoHall;
+  /** A sala de troféus: um pin por categoria, na ordem da edição. */
+  pins: PinHall[];
+  /** Link da pasta de fotos do ano (Highlights). */
+  fotosUrl: string | null;
 }
 
 export interface Gestao {
   participantes: { id: string; nome: string; admin: boolean; ativo: boolean; temFoto: boolean }[];
   categorias: { id: string; nome: string; descricao: string; ordem: number; ativa: boolean }[];
-  edicoes: { ano: number; data: string | null; local: string | null; fase: Fase; atual: boolean; participantes: string[] }[];
+  edicoes: {
+    ano: number;
+    data: string | null;
+    local: string | null;
+    fotosUrl: string | null;
+    fase: Fase;
+    atual: boolean;
+    participantes: string[];
+  }[];
 }
 
 export interface ErroApi {

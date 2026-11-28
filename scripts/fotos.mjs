@@ -1,4 +1,4 @@
-// Converte as fotos de assets/img/*.png (fora do git) em WebP 256/512 e grava no D1.
+// Converte as fotos de assets/img/profile/*.png (fora do git) em WebP 256/512 e grava no D1.
 // Uso:  npm run fotos             → banco local (wrangler dev)
 //       npm run fotos -- --remote → banco de produção (precisa do login do wrangler
 //                                   e de $env:DATABASE_ID_CLOUDFLARE com o id do D1)
@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { wranglerProducao } from './wrangler-producao.mjs';
 
 const raiz = new URL('..', import.meta.url);
-const origem = new URL('assets/img/', raiz);
+const origem = new URL('assets/img/profile/', raiz);
 const saida = new URL('scripts/saida/', raiz);
 const remoto = process.argv.includes('--remote');
 // O D1 aceita statements de até 100 KB; em hex cada byte vira 2 caracteres.
@@ -17,7 +17,7 @@ const LIMITE_BYTES = 45_000;
 
 await mkdir(new URL('fotos/', saida), { recursive: true });
 const arquivos = (await readdir(origem)).filter((f) => f.toLowerCase().endsWith('.png'));
-if (!arquivos.length) throw new Error('Nenhum PNG em assets/img/');
+if (!arquivos.length) throw new Error('Nenhum PNG em assets/img/profile/');
 
 const linhas = [];
 let total = 0;

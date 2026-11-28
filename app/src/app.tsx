@@ -5,13 +5,14 @@ import { Toast } from './components/Toast';
 import { Controle } from './controle/Controle';
 import { estado, pessoa, souAdmin } from './lib/estado';
 import { perfilAberto } from './lib/paineis';
-import { ir, rota } from './lib/rota';
+import { abrirHall, ir, rota } from './lib/rota';
 import { sairDoPerfil, tokenAparelho, tokenSessao } from './lib/sessao';
 import { alternarMudo, mudo } from './lib/som';
 import { TelaCarregando, TelaIdentificacao, TelaPalavraChave } from './telas/Entrada';
 import { TelaInicio } from './telas/Inicio';
 import { TelaLobby } from './telas/Lobby';
-import { TelaHall, TelaRevelacao, TelaTelao } from './telas/Revelacao';
+import { FolhaHall, TelaHall } from './telas/Hall';
+import { TelaRevelacao, TelaTelao } from './telas/Revelacao';
 import { TelaSorteio } from './telas/Sorteio';
 import { TelaVotacao } from './telas/Votacao';
 
@@ -37,6 +38,7 @@ export function App() {
       <>
         <Atual />
         <FolhaPerfil />
+        <FolhaHall />
         {souAdmin.value && <Controle />}
       </>
     );
@@ -69,7 +71,7 @@ function FolhaPerfil() {
           variante="secundario"
           onClick={() => {
             fechar();
-            ir('hall');
+            abrirHall();
           }}
         >
           Hall da Fama

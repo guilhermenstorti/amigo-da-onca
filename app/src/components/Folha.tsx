@@ -6,6 +6,8 @@ interface Props {
   aberta: boolean;
   aoFechar: () => void;
   titulo: string;
+  /** Ocupa a altura toda (Hall da Fama). */
+  cheia?: boolean;
   children: ComponentChildren;
 }
 
@@ -13,7 +15,7 @@ interface Props {
  * Folha que sobe do rodapé (<dialog> modal). A tela de baixo continua montada, com o mesmo estado:
  * o admin abre, faz a ação e volta exatamente para onde estava.
  */
-export function Folha({ aberta, aoFechar, titulo, children }: Props) {
+export function Folha({ aberta, aoFechar, titulo, cheia, children }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
   const id = useId();
 
@@ -29,7 +31,7 @@ export function Folha({ aberta, aoFechar, titulo, children }: Props) {
   return (
     <dialog
       ref={ref}
-      class="folha"
+      class={`folha${cheia ? ' folha--cheia' : ''}`}
       aria-labelledby={id}
       onClose={aoFechar}
       onClick={(e) => e.target === ref.current && aoFechar()}

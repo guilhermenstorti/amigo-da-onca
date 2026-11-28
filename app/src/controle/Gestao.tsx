@@ -46,6 +46,7 @@ function AbaEdicao({ dados, recarregar }: PropsAba) {
   const atual = dados.edicoes.find((e) => e.atual);
   const [data, setData] = useState(atual?.data ?? '');
   const [local, setLocal] = useState(atual?.local ?? '');
+  const [fotosUrl, setFotosUrl] = useState(atual?.fotosUrl ?? '');
   const [quem, setQuem] = useState<string[]>(atual?.participantes ?? []);
   const [novoAno, setNovoAno] = useState(String((atual?.ano ?? new Date().getFullYear()) + 1));
   const ativos = dados.participantes.filter((p) => p.ativo);
@@ -64,6 +65,7 @@ function AbaEdicao({ dados, recarregar }: PropsAba) {
             Local
           </label>
           <input id="ed-local" class="campo" type="text" maxLength={80} value={local} placeholder="Ex.: Casa da Maju" onInput={(ev) => setLocal(ev.currentTarget.value)} />
+          <CampoFotos id="ed-fotos" valor={fotosUrl} aoMudar={setFotosUrl} />
           <fieldset class="escolha">
             <legend class="rotulo">Quem participa{podeMudarQuem ? '' : ' (só muda antes do sorteio)'}</legend>
             <div class="chips-pessoas">
@@ -87,7 +89,7 @@ function AbaEdicao({ dados, recarregar }: PropsAba) {
           <Botao
             onClick={() =>
               salvarComAviso(
-                () => api('PUT', '/admin/edicao', { ano: atual.ano, data, local, ...(podeMudarQuem ? { participantes: quem } : {}) }),
+                () => api('PUT', '/admin/edicao', { ano: atual.ano, data, local, fotosUrl, ...(podeMudarQuem ? { participantes: quem } : {}) }),
                 'Edição salva.',
               ).then(recarregar)
             }
@@ -264,34 +266,70 @@ function AbaCategorias({ dados, recarregar }: PropsAba) {
 
 // ---------- Hall da Fama ----------
 
+/** Link da pasta de fotos do ano (Highlights do Hall). Fica só no banco: o repositório é público. */
+function CampoFotos({ id, valor, aoMudar }: { id: string; valor: string; aoMudar: (v: string) => void }) {
+  return (
+    <>
+      <label class="rotulo" for={id}>
+        Link das fotos (pasta do Google Drive)
+      </label>
+      <input
+        id={id}
+        class="campo"
+        type="url"
+        inputMode="url"
+        maxLength={400}
+        autoComplete="off"
+        value={valor}
+        placeholder="https://drive.google.com/drive/folders/…"
+        onInput={(ev) => aoMudar(ev.currentTarget.value)}
+      />
+      <p class="legenda">Aparece nos Highlights do Hall da Fama, só para quem tem a palavra-chave.</p>
+    </>
+  );
+}
+
 interface Rascunho {
   ano: string;
   data: string;
   local: string;
+  fotosUrl: string;
+  premiado: boolean;
   categorias: { nome: string; vencedores: string[] }[];
 }
 
-const rascunhoDe = (a: AnoHall): Rascunho => ({
-  ano: String(a.ano),
-  data: a.data ?? '',
-  local: a.local ?? '',
-  categorias: a.categorias.map((c) => ({ nome: c.nome, vencedores: c.vencedores.map((v) => v.id) })),
-});
+const categoriasPadrao = (dados: DadosGestao) => dados.categorias.filter((c) => c.ativa).map((c) => ({ nome: c.nome, vencedores: [] as string[] }));
+
+function rascunhoDe(a: AnoHall, dados: DadosGestao): Rascunho {
+  const premiado = a.premiacao === 'completa';
+  return {
+    ano: String(a.ano),
+    data: a.data ?? '',
+    local: a.local ?? '',
+    fotosUrl: a.fotosUrl ?? '',
+    premiado,
+    // Ano sem premiação vem com as sombras dos pins: não são categorias de verdade.
+    categorias: premiado ? a.pins.map((p) => ({ nome: p.nome, vencedores: (p.vencedores ?? []).map((v) => v.id) })) : categoriasPadrao(dados),
+  };
+}
 
 function AbaHall({ dados }: { dados: DadosGestao }) {
   const [anos, setAnos] = useState<AnoHall[] | null>(null);
-  const [editando, setEditando] = useState<Rascunho | null>(null);
+  const [editando, setEditando] = useState<{ r: Rascunho; novo: boolean } | null>(null);
   const carregar = () =>
     api<AnoHall[]>('GET', '/hall')
       .then(setAnos)
       .catch((e) => mostrarToast(mensagemDe(e), 'alerta'));
   useEffect(() => void carregar(), []);
   const anoAtual = estado.value?.edicao.ano;
+  // A edição em andamento é cuidada pelo Ao vivo e pela aba Edição; aqui entram os anos que já passaram.
+  const editaveis = anos?.filter((a) => !a.atual || a.premiacao === 'completa' || a.premiacao === 'sem');
 
   if (editando) {
     return (
       <EditorAno
-        r={editando}
+        r={editando.r}
+        novo={editando.novo}
         pessoas={dados.participantes}
         aoFechar={() => {
           setEditando(null);
@@ -303,13 +341,16 @@ function AbaHall({ dados }: { dados: DadosGestao }) {
 
   return (
     <div class="gestao">
-      <p class="legenda">Cadastre os anos de antes do app ou corrija algum resultado.</p>
+      <p class="legenda">Cadastre os anos de antes do app (com o link das fotos) ou corrija algum resultado.</p>
       <ul class="lista-gestao">
-        {anos?.map((a) => (
+        {editaveis?.map((a) => (
           <li key={a.ano} class="lista-gestao__linha">
             <span class="lista-gestao__ano">{a.ano}</span>
-            <span class="legenda">{a.categorias.length} categorias</span>
-            <Botao variante="texto" class="botao--mini" onClick={() => setEditando(rascunhoDe(a))}>
+            <span class="legenda">
+              {a.premiacao === 'sem' ? 'Sem premiação' : `${a.pins.length} pins`}
+              {a.fotosUrl ? ' · com fotos' : ''}
+            </span>
+            <Botao variante="texto" class="botao--mini" onClick={() => setEditando({ r: rascunhoDe(a, dados), novo: false })}>
               Editar
             </Botao>
           </li>
@@ -319,10 +360,16 @@ function AbaHall({ dados }: { dados: DadosGestao }) {
         variante="secundario"
         onClick={() =>
           setEditando({
-            ano: String(Math.min(...(anos ?? []).map((a) => a.ano), anoAtual ?? new Date().getFullYear()) - 1),
-            data: '',
-            local: '',
-            categorias: dados.categorias.filter((c) => c.ativa).map((c) => ({ nome: c.nome, vencedores: [] })),
+            novo: true,
+            r: {
+              ano: String(Math.min(...(anos ?? []).map((a) => a.ano), anoAtual ?? new Date().getFullYear()) - 1),
+              data: '',
+              local: '',
+              fotosUrl: '',
+              // Antes do app não tinha premiação: o ano novo começa assim.
+              premiado: false,
+              categorias: categoriasPadrao(dados),
+            },
           })
         }
       >
@@ -332,9 +379,24 @@ function AbaHall({ dados }: { dados: DadosGestao }) {
   );
 }
 
-function EditorAno({ r, pessoas, aoFechar }: { r: Rascunho; pessoas: DadosGestao['participantes']; aoFechar: () => void }) {
+function EditorAno({ r, novo, pessoas, aoFechar }: { r: Rascunho; novo: boolean; pessoas: DadosGestao['participantes']; aoFechar: () => void }) {
   const [d, setD] = useState(r);
   const mudarCategoria = (i: number, c: Rascunho['categorias'][number]) => setD({ ...d, categorias: d.categorias.map((x, j) => (j === i ? c : x)) });
+  // Só reescreve os pins (e apaga as justificativas) quando a premiação mudou de verdade.
+  const mexeuNosPins =
+    novo || d.ano !== r.ano || d.premiado !== r.premiado || (d.premiado && JSON.stringify(d.categorias) !== JSON.stringify(r.categorias));
+  const salvar = () =>
+    salvarComAviso(
+      () =>
+        api('PUT', `/admin/hall/${d.ano}`, {
+          data: d.data,
+          local: d.local,
+          fotosUrl: d.fotosUrl,
+          ...(mexeuNosPins ? { categorias: d.premiado ? d.categorias : [] } : {}),
+        }),
+      `Hall de ${d.ano} salvo.`,
+    ).then((ok) => ok && aoFechar());
+
   return (
     <form class="gestao formulario" onSubmit={(ev) => ev.preventDefault()}>
       <label class="rotulo" for="hall-ano">
@@ -349,45 +411,68 @@ function EditorAno({ r, pessoas, aoFechar }: { r: Rascunho; pessoas: DadosGestao
         Local (opcional)
       </label>
       <input id="hall-local" class="campo" maxLength={80} value={d.local} onInput={(ev) => setD({ ...d, local: ev.currentTarget.value })} />
+      <CampoFotos id="hall-fotos" valor={d.fotosUrl} aoMudar={(fotosUrl) => setD({ ...d, fotosUrl })} />
 
-      {d.categorias.map((c, i) => (
-        <fieldset key={i} class="escolha separado">
-          <legend class="sr-only">Categoria {i + 1}</legend>
-          <div class="linha">
-            <input class="campo" aria-label="Nome da categoria" maxLength={50} value={c.nome} onInput={(ev) => mudarCategoria(i, { ...c, nome: ev.currentTarget.value })} />
-            <button type="button" class="botao botao--icone botao--mini" aria-label={`Remover ${c.nome}`} onClick={() => setD({ ...d, categorias: d.categorias.filter((_, j) => j !== i) })}>
-              <Icone nome="fechar" tamanho={18} />
-            </button>
-          </div>
-          <div class="chips-pessoas">
-            {pessoas.map((p) => {
-              const marcado = c.vencedores.includes(p.id);
-              return (
+      <label class="interruptor interruptor--linha separado">
+        <span>Teve premiação neste ano</span>
+        <input type="checkbox" role="switch" checked={d.premiado} onChange={(ev) => setD({ ...d, premiado: ev.currentTarget.checked })} />
+      </label>
+      {!d.premiado && <p class="legenda">A sala de troféus deste ano aparece vazia, só com a sombra dos pins e o aviso "Ano sem premiação".</p>}
+
+      {d.premiado && (
+        <>
+          {d.categorias.map((c, i) => (
+            <fieldset key={i} class="escolha separado">
+              <legend class="sr-only">Categoria {i + 1}</legend>
+              <div class="linha">
+                <input class="campo" aria-label="Nome da categoria" maxLength={50} value={c.nome} onInput={(ev) => mudarCategoria(i, { ...c, nome: ev.currentTarget.value })} />
                 <button
-                  key={p.id}
                   type="button"
-                  class={`chip-pessoa chip-pessoa--mini${marcado ? ' chip-pessoa--marcado' : ''}`}
-                  aria-pressed={marcado}
-                  onClick={() => mudarCategoria(i, { ...c, vencedores: marcado ? c.vencedores.filter((v) => v !== p.id) : [...c.vencedores, p.id] })}
+                  class="botao botao--icone botao--mini"
+                  aria-label={`Remover ${c.nome}`}
+                  onClick={() => setD({ ...d, categorias: d.categorias.filter((_, j) => j !== i) })}
                 >
-                  {p.nome}
+                  <Icone nome="fechar" tamanho={18} />
                 </button>
-              );
-            })}
-          </div>
-        </fieldset>
-      ))}
-      <Botao variante="secundario" onClick={() => setD({ ...d, categorias: [...d.categorias, { nome: 'Nova categoria', vencedores: [] }] })}>
-        <Icone nome="mais" /> Categoria
-      </Botao>
-      <Botao onClick={() => salvarComAviso(() => api('PUT', `/admin/hall/${d.ano}`, { data: d.data, local: d.local, categorias: d.categorias }), `Hall de ${d.ano} salvo.`).then((ok) => ok && aoFechar())}>
-        Salvar {d.ano}
-      </Botao>
+              </div>
+              <div class="chips-pessoas">
+                {pessoas.map((p) => {
+                  const marcado = c.vencedores.includes(p.id);
+                  return (
+                    <button
+                      key={p.id}
+                      type="button"
+                      class={`chip-pessoa chip-pessoa--mini${marcado ? ' chip-pessoa--marcado' : ''}`}
+                      aria-pressed={marcado}
+                      onClick={() => mudarCategoria(i, { ...c, vencedores: marcado ? c.vencedores.filter((v) => v !== p.id) : [...c.vencedores, p.id] })}
+                    >
+                      {p.nome}
+                    </button>
+                  );
+                })}
+              </div>
+            </fieldset>
+          ))}
+          <Botao variante="secundario" onClick={() => setD({ ...d, categorias: [...d.categorias, { nome: 'Nova categoria', vencedores: [] }] })}>
+            <Icone nome="mais" /> Categoria
+          </Botao>
+          {!novo && mexeuNosPins && <p class="legenda">Salvar troca os pins deste ano e apaga as justificativas da revelação.</p>}
+        </>
+      )}
+
+      <Botao onClick={salvar}>Salvar {d.ano}</Botao>
       <div class="linha">
         <Botao variante="texto" onClick={aoFechar}>
           Voltar
         </Botao>
-        <Confirmar rotulo="Apagar este ano" pergunta={`Apagar ${d.ano} do Hall?`} variante="perigo" confirmar={() => salvarComAviso(() => api('DELETE', `/admin/hall/${d.ano}`), `${d.ano} apagado.`).then(aoFechar)} />
+        {!novo && (
+          <Confirmar
+            rotulo="Apagar este ano"
+            pergunta={`Apagar ${r.ano} do Hall, com a sala de troféus?`}
+            variante="perigo"
+            confirmar={() => salvarComAviso(() => api('DELETE', `/admin/hall/${r.ano}`), `${r.ano} apagado.`).then(aoFechar)}
+          />
+        )}
       </div>
     </form>
   );

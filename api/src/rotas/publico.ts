@@ -1,7 +1,7 @@
-import type { AnoHall, Revelacao } from '../contrato';
+import type { AnoHall, Fase, PinHall, PremiacaoHall, Revelacao, VencedorHall } from '../contrato';
 import { aparelhoDoToken, bytesDe, ipDe, nomeDoAdmin, type Ctx } from '../contexto';
 import { conferirLimite, emitirToken, iguais, normalizarPalavra, registrarFalha } from '../cripto';
-import { conferirUrlFoto, edicaoAtual, montarEstado, tocar } from '../dados';
+import { conferirUrlFoto, edicaoAtual, montarEstado, tocar, urlFoto } from '../dados';
 import { agora, erro, json, lerCorpo } from '../http';
 
 const JANELA = 15 * 60;
@@ -126,24 +126,65 @@ export async function revelacao(c: Ctx) {
   return json(resposta);
 }
 
-export async function hall(c: Ctx) {
-  const { results } = await c.env.DB.prepare(
-    `SELECT e.ano, e.data, e.local, ec.categoria_id, ec.nome AS categoria, r.vencedor_id, p.nome AS vencedor
-     FROM edicoes e
-     JOIN edicao_categorias ec ON ec.ano = e.ano
-     LEFT JOIN resultados r ON r.ano = ec.ano AND r.categoria_id = ec.categoria_id
-     LEFT JOIN participantes p ON p.id = r.vencedor_id
-     WHERE e.fase = 'encerrada'
-     ORDER BY e.ano DESC, ec.ordem, p.nome`,
-  ).all<{ ano: number; data: string | null; local: string | null; categoria_id: string; categoria: string; vencedor_id: string | null; vencedor: string | null }>();
+interface LinhaEdicaoHall {
+  ano: number;
+  data: string | null;
+  local: string | null;
+  fase: Fase;
+  atual: number;
+  categorias_reveladas: number;
+  fotos_url: string | null;
+}
 
-  const anos: AnoHall[] = [];
-  for (const l of results) {
-    let ano = anos.find((a) => a.ano === l.ano);
-    if (!ano) anos.push((ano = { ano: l.ano, data: l.data, local: l.local, categorias: [] }));
-    let cat = ano.categorias.find((k) => k.id === l.categoria_id);
-    if (!cat) ano.categorias.push((cat = { id: l.categoria_id, nome: l.categoria, vencedores: [] }));
-    if (l.vencedor_id && l.vencedor) cat.vencedores.push({ id: l.vencedor_id, nome: l.vencedor });
-  }
+/**
+ * Hall da Fama: todas as edições, cada uma com a sua sala de troféus (um pin por categoria).
+ * Na edição atual, o pin só sai com o vencedor depois que a categoria é revelada: nada em segredo vaza por aqui.
+ */
+export async function hall(c: Ctx) {
+  const [edR, catR, resR, ativasR] = await c.env.DB.batch([
+    c.env.DB.prepare('SELECT ano, data, local, fase, atual, categorias_reveladas, fotos_url FROM edicoes ORDER BY ano DESC'),
+    c.env.DB.prepare('SELECT ano, categoria_id AS id, nome FROM edicao_categorias ORDER BY ano, ordem'),
+    c.env.DB.prepare(
+      `SELECT r.ano, r.categoria_id, p.id, p.nome, (SELECT max(f.versao) FROM fotos f WHERE f.participante_id = p.id) AS foto_v
+       FROM resultados r JOIN participantes p ON p.id = r.vencedor_id ORDER BY p.nome`,
+    ),
+    c.env.DB.prepare('SELECT id, nome FROM categorias WHERE ativa = 1 ORDER BY ordem, id'),
+  ]);
+  const edicoes = edR.results as unknown as LinhaEdicaoHall[];
+  const categorias = catR.results as unknown as { ano: number; id: string; nome: string }[];
+  const resultados = resR.results as unknown as { ano: number; categoria_id: string; id: string; nome: string; foto_v: number | null }[];
+  // Anos sem premiação (e a edição atual antes da votação) mostram a sombra dos pins de hoje.
+  const sombras: PinHall[] = (ativasR.results as unknown as { id: string; nome: string }[]).map((k) => ({ ...k, vencedores: null }));
+
+  const vencedores = async (ano: number, categoria: string): Promise<VencedorHall[]> =>
+    Promise.all(
+      resultados
+        .filter((r) => r.ano === ano && r.categoria_id === categoria)
+        .map(async (r) => ({
+          id: r.id,
+          nome: r.nome,
+          foto: r.foto_v ? { p: await urlFoto(c.env, c.base, r.id, 256, r.foto_v), g: await urlFoto(c.env, c.base, r.id, 512, r.foto_v) } : null,
+        })),
+    );
+
+  const anos: AnoHall[] = await Promise.all(
+    edicoes.map(async (e) => {
+      const doAno = categorias.filter((k) => k.ano === e.ano);
+      let premiacao: PremiacaoHall;
+      if (e.atual && e.fase !== 'encerrada') premiacao = e.fase === 'revelacao' ? 'revelando' : 'em-breve';
+      else premiacao = doAno.length ? 'completa' : 'sem';
+
+      let pins: PinHall[];
+      if (premiacao === 'sem' || (premiacao === 'em-breve' && !doAno.length)) pins = sombras;
+      else {
+        // 'em-breve' com categorias = votação aberta: só as sombras. 'revelando': só as já reveladas.
+        const entregues = premiacao === 'completa' ? doAno.length : premiacao === 'revelando' ? e.categorias_reveladas : 0;
+        pins = await Promise.all(
+          doAno.map(async (k, i) => ({ id: k.id, nome: k.nome, vencedores: i < entregues ? await vencedores(e.ano, k.id) : null })),
+        );
+      }
+      return { ano: e.ano, data: e.data, local: e.local, atual: !!e.atual, premiacao, pins, fotosUrl: e.fotos_url };
+    }),
+  );
   return json(anos);
 }

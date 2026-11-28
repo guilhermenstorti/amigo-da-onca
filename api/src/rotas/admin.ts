@@ -218,7 +218,7 @@ export async function gestao(c: Ctx) {
        FROM participantes p ORDER BY ordem, id`,
     ),
     c.env.DB.prepare('SELECT id, nome, descricao, ordem, ativa FROM categorias ORDER BY ordem, id'),
-    c.env.DB.prepare('SELECT ano, data, local, fase, atual FROM edicoes ORDER BY ano DESC'),
+    c.env.DB.prepare('SELECT ano, data, local, fotos_url, fase, atual FROM edicoes ORDER BY ano DESC'),
     c.env.DB.prepare('SELECT ano, participante_id FROM edicao_participantes'),
   ]);
   const ep = epR.results as { ano: number; participante_id: string }[];
@@ -234,9 +234,14 @@ export async function gestao(c: Ctx) {
       ...k,
       ativa: !!k.ativa,
     })),
-    edicoes: (eR.results as { ano: number; data: string | null; local: string | null; fase: Gestao['edicoes'][number]['fase']; atual: number }[]).map(
-      (e) => ({ ...e, atual: !!e.atual, participantes: ep.filter((x) => x.ano === e.ano).map((x) => x.participante_id) }),
-    ),
+    edicoes: (
+      eR.results as { ano: number; data: string | null; local: string | null; fotos_url: string | null; fase: Gestao['edicoes'][number]['fase']; atual: number }[]
+    ).map(({ fotos_url, ...e }) => ({
+      ...e,
+      fotosUrl: fotos_url,
+      atual: !!e.atual,
+      participantes: ep.filter((x) => x.ano === e.ano).map((x) => x.participante_id),
+    })),
   };
   return json(resposta);
 }
@@ -253,13 +258,30 @@ function validarLocal(local: unknown): string | null {
   return local.trim() || null;
 }
 
+/** Link da pasta de fotos do ano (Google Drive ou parecido): só https. */
+function validarFotosUrl(valor: unknown): string | null {
+  if (valor === null || valor === undefined) return null;
+  if (typeof valor !== 'string' || valor.trim().length > 400) throw erro(400, 'fotos-url', 'Link das fotos muito longo.');
+  const texto = valor.trim();
+  if (!texto) return null;
+  let url: URL;
+  try {
+    url = new URL(texto);
+  } catch {
+    throw erro(400, 'fotos-url', 'Link das fotos inválido.');
+  }
+  if (url.protocol !== 'https:') throw erro(400, 'fotos-url', 'O link das fotos precisa começar com https://');
+  return url.toString();
+}
+
 /** Cria a edição do ano (vira a atual) ou edita data, local e quem participa da atual. */
 export async function salvarEdicao(c: Ctx) {
-  const corpo = await lerCorpo<{ ano?: number; data?: string | null; local?: string | null; participantes?: string[] }>(c.req);
+  const corpo = await lerCorpo<{ ano?: number; data?: string | null; local?: string | null; fotosUrl?: string | null; participantes?: string[] }>(c.req);
   const ano = Number(corpo.ano);
   if (!Number.isInteger(ano) || ano < 2000 || ano > 2100) throw erro(400, 'ano', 'Ano inválido.');
   const data = validarData(corpo.data);
   const local = validarLocal(corpo.local);
+  const fotosUrl = validarFotosUrl(corpo.fotosUrl);
   const atual = await edicaoAtual(c.env).catch(() => null);
 
   let lista = corpo.participantes;
@@ -287,6 +309,7 @@ export async function salvarEdicao(c: Ctx) {
   }
 
   const stmts: D1PreparedStatement[] = [c.env.DB.prepare('UPDATE edicoes SET data = ?, local = ? WHERE ano = ?').bind(data, local, ano)];
+  if (corpo.fotosUrl !== undefined) stmts.push(c.env.DB.prepare('UPDATE edicoes SET fotos_url = ? WHERE ano = ?').bind(fotosUrl, ano));
   if (lista) {
     if (atual.fase !== 'preparacao' && atual.fase !== 'lobby') {
       throw erro(409, 'fase', 'Quem participa só muda antes do sorteio.');
@@ -368,40 +391,65 @@ export async function salvarCategorias(c: Ctx) {
   return ok();
 }
 
-/** Cadastra (ou substitui) os vencedores de um ano no Hall da Fama. */
+/**
+ * Cadastra um ano no Hall da Fama ou corrige um ano que já passou.
+ * - `categorias: []` = ano sem premiação (a sala de troféus fica só com as sombras dos pins).
+ * - Sem `categorias`, mexe só em data, local e link das fotos: resultados e justificativas ficam como estão.
+ */
 export async function salvarHall(c: Ctx) {
   const ano = Number(c.params[0]);
-  const corpo = await lerCorpo<{ data?: string | null; local?: string | null; categorias?: { nome?: string; vencedores?: string[] }[] }>(c.req);
+  if (ano < 2000 || ano > 2100) throw erro(400, 'ano', 'Ano inválido.');
+  const corpo = await lerCorpo<{
+    data?: string | null;
+    local?: string | null;
+    fotosUrl?: string | null;
+    categorias?: { nome?: string; vencedores?: string[] }[];
+  }>(c.req);
   const atual = await edicaoAtual(c.env).catch(() => null);
   if (atual?.ano === ano && atual.fase !== 'encerrada') throw erro(409, 'fase', 'Essa edição ainda está acontecendo.');
-  if (!Array.isArray(corpo.categorias)) throw erro(400, 'categorias', 'Lista de categorias inválida.');
-  const { results } = await c.env.DB.prepare('SELECT id FROM participantes').all<{ id: string }>();
-  const pessoas = new Set(results.map((r) => r.id));
-  const usados = new Set<string>();
-  const categorias = corpo.categorias.map((k, i) => {
-    const nome = (k.nome ?? '').trim();
-    if (!nome || nome.length > 50) throw erro(400, 'nome', 'Cada categoria precisa de um nome.');
-    let id = slug(nome);
-    while (usados.has(id)) id = `${id}-${i}`;
-    usados.add(id);
-    const vencedores = [...new Set(k.vencedores ?? [])].filter((v) => pessoas.has(v));
-    return { id, nome, ordem: i + 1, vencedores };
-  });
-  await c.env.DB.batch([
+  if (corpo.categorias !== undefined && !Array.isArray(corpo.categorias)) throw erro(400, 'categorias', 'Lista de categorias inválida.');
+
+  const stmts: D1PreparedStatement[] = [
     c.env.DB.prepare(
       `INSERT INTO edicoes (ano, data, local, fase, atual) VALUES (?, ?, ?, 'encerrada', 0)
        ON CONFLICT (ano) DO UPDATE SET data = excluded.data, local = excluded.local`,
     ).bind(ano, validarData(corpo.data), validarLocal(corpo.local)),
-    c.env.DB.prepare('DELETE FROM justificativas WHERE ano = ?').bind(ano),
-    c.env.DB.prepare('DELETE FROM resultados WHERE ano = ?').bind(ano),
-    c.env.DB.prepare('DELETE FROM edicao_categorias WHERE ano = ?').bind(ano),
-    ...categorias.flatMap((k) => [
-      c.env.DB.prepare('INSERT INTO edicao_categorias (ano, categoria_id, nome, ordem) VALUES (?, ?, ?, ?)').bind(ano, k.id, k.nome, k.ordem),
-      ...k.vencedores.map((v) =>
-        c.env.DB.prepare("INSERT INTO resultados (ano, categoria_id, vencedor_id, origem) VALUES (?, ?, ?, 'manual')").bind(ano, k.id, v),
-      ),
-    ]),
-  ]);
+  ];
+  if (corpo.fotosUrl !== undefined) {
+    stmts.push(c.env.DB.prepare('UPDATE edicoes SET fotos_url = ? WHERE ano = ?').bind(validarFotosUrl(corpo.fotosUrl), ano));
+  }
+
+  if (corpo.categorias) {
+    const [pessoasR, categoriasR] = await c.env.DB.batch([
+      c.env.DB.prepare('SELECT id FROM participantes'),
+      c.env.DB.prepare('SELECT id, nome FROM categorias'),
+    ]);
+    const pessoas = new Set((pessoasR.results as { id: string }[]).map((r) => r.id));
+    // Categoria com o mesmo nome de uma que já existe usa o mesmo id (e o mesmo pin).
+    const idPorNome = new Map((categoriasR.results as { id: string; nome: string }[]).map((k) => [slug(k.nome), k.id]));
+    const usados = new Set<string>();
+    const categorias = corpo.categorias.map((k, i) => {
+      const nome = (k.nome ?? '').trim();
+      if (!nome || nome.length > 50) throw erro(400, 'nome', 'Cada categoria precisa de um nome.');
+      let id = idPorNome.get(slug(nome)) ?? slug(nome);
+      while (usados.has(id)) id = `${id}-${i}`;
+      usados.add(id);
+      const vencedores = [...new Set(k.vencedores ?? [])].filter((v) => pessoas.has(v));
+      return { id, nome, ordem: i + 1, vencedores };
+    });
+    stmts.push(
+      c.env.DB.prepare('DELETE FROM justificativas WHERE ano = ?').bind(ano),
+      c.env.DB.prepare('DELETE FROM resultados WHERE ano = ?').bind(ano),
+      c.env.DB.prepare('DELETE FROM edicao_categorias WHERE ano = ?').bind(ano),
+      ...categorias.flatMap((k) => [
+        c.env.DB.prepare('INSERT INTO edicao_categorias (ano, categoria_id, nome, ordem) VALUES (?, ?, ?, ?)').bind(ano, k.id, k.nome, k.ordem),
+        ...k.vencedores.map((v) =>
+          c.env.DB.prepare("INSERT INTO resultados (ano, categoria_id, vencedor_id, origem) VALUES (?, ?, ?, 'manual')").bind(ano, k.id, v),
+        ),
+      ]),
+    );
+  }
+  await c.env.DB.batch(stmts);
   return ok();
 }
 

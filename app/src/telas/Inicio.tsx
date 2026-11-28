@@ -6,9 +6,10 @@ import { Tela } from '../components/Tela';
 import { frases } from '../conteudo/frases';
 import { acaoAdmin } from '../lib/acoes';
 import { estado } from '../lib/estado';
-import { ir } from '../lib/rota';
+import { abrirHall, ir } from '../lib/rota';
 import { dataCurta } from '../lib/ui';
 import { TelaCarregando } from './Entrada';
+import { ChamadaHall } from './Hall';
 
 interface Opcao {
   titulo: string;
@@ -138,6 +139,8 @@ export function TelaInicio() {
   const e = estado.value;
   if (!e) return <TelaCarregando />;
   const quando = [dataCurta(e.edicao.data), e.edicao.local].filter(Boolean).join(' · ');
+  // Antes do sorteio é hora de esperar: o Hall da Fama ganha destaque.
+  const esperando = e.edicao.fase === 'preparacao' || e.edicao.fase === 'lobby';
 
   return (
     <Tela titulo={`Amigo da Onça ${e.edicao.ano}`} subtitulo={quando || 'Data e local a definir'}>
@@ -147,11 +150,15 @@ export function TelaInicio() {
         <CartaoOpcao o={opcaoVotacao(e)} />
       </div>
       {e.eu?.admin && <AcaoDoAdmin e={e} />}
-      <div class="links">
-        <button type="button" class="botao botao--texto" onClick={() => ir('hall')}>
-          <Icone nome="trofeu" /> Hall da Fama
-        </button>
-      </div>
+      {esperando ? (
+        <ChamadaHall />
+      ) : (
+        <div class="links">
+          <button type="button" class="botao botao--texto" onClick={abrirHall}>
+            <Icone nome="trofeu" /> Hall da Fama
+          </button>
+        </div>
+      )}
     </Tela>
   );
 }

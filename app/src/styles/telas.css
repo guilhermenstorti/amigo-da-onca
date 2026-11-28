@@ -789,39 +789,274 @@
 }
 
 /* ---------- Hall da Fama ---------- */
-.hall-ano {
-  gap: var(--e-2);
+.hall {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-4);
 }
 
-.hall-ano h2 {
-  font-size: var(--fs-titulo-1);
+.hall-ano {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-4);
+  animation: hall-entra 0.45s var(--suave) both;
+}
+
+@keyframes hall-entra {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.hall-ano__topo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hall-ano__topo h3 {
+  font: 700 var(--fs-titulo-2) / 1.15 var(--fonte-titulo);
   color: var(--ouro-300);
 }
 
-.hall-ano__linha {
+/* Sala de troféus: uma estante de pins, cada um no seu pedestal. */
+.sala {
+  border-radius: var(--r-xl);
+  padding: var(--e-5) var(--e-3) var(--e-6);
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 10px 0;
-  border-top: 1px solid var(--borda);
+  gap: var(--e-4);
 }
 
-.hall-ano__categoria {
+.sala > .micro {
+  padding-left: var(--e-2);
+}
+
+.sala__aviso {
+  align-self: center;
+  max-width: 100%;
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--borda-forte);
+  background: var(--noite-700);
+  font: 600 var(--fs-corpo-s) / 1.3 var(--fonte-titulo);
+  color: var(--areia-300);
+  text-align: center;
+}
+
+.sala__aviso--ao-vivo {
+  border-color: var(--borda-ouro);
+  color: var(--ouro-300);
+}
+
+.sala__estante {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--e-5) var(--e-2);
+}
+
+.trofeu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.trofeu__pin {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding-bottom: 8px;
+}
+
+/* Pedestal: a sombra no chão da estante. */
+.trofeu__pin::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 18%;
+  right: 18%;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), transparent);
+}
+
+.trofeu__categoria {
+  font: 600 var(--fs-legenda) / 1.25 var(--fonte-titulo);
+  color: var(--areia-300);
+  overflow-wrap: anywhere;
+}
+
+.trofeu--sombra .trofeu__categoria {
+  color: var(--areia-500);
+}
+
+.trofeu__vencedores {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.trofeu__fotos {
+  display: flex;
+}
+
+.trofeu__fotos .avatar + .avatar {
+  margin-left: -10px;
+}
+
+.trofeu__nome {
+  font: 700 var(--fs-corpo-s) / 1.2 var(--fonte-titulo);
+  color: var(--areia-50);
+}
+
+.trofeu__legenda {
   font-size: var(--fs-legenda);
+  color: var(--areia-500);
+}
+
+.pin {
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.55));
+}
+
+.pin--sombra {
+  filter: none;
+}
+
+/* Pin entregue pousa na estante (também quando é revelado ao vivo). */
+.trofeu:not(.trofeu--sombra) .pin {
+  animation: pin-pousa 0.8s var(--mola) both;
+}
+
+@keyframes pin-pousa {
+  from {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.6) rotate(-10deg);
+  }
+}
+
+.highlights p:not(.legenda) {
+  color: var(--areia-300);
+  font-size: var(--fs-corpo-s);
+}
+
+/* Lembrete fixo no topo do Hall aberto por cima do lobby. */
+.faixa-lobby {
+  position: sticky;
+  top: calc(-1 * var(--e-2));
+  z-index: 2;
+  margin-top: calc(-1 * var(--e-2));
+  padding: var(--e-2) 0 var(--e-1);
+  background: var(--noite-800);
+}
+
+.faixa-lobby__pilula {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2);
+  min-height: 48px;
+  padding: 2px 4px 2px 14px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--borda-forte);
+  background: var(--noite-700);
+}
+
+.faixa-lobby__pilula--completo {
+  border-color: var(--ouro-400);
+  box-shadow: var(--brilho-ouro);
+}
+
+.faixa-lobby__ponto {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sucesso);
+  animation: ponto-chegou 1.2s var(--suave);
+}
+
+@keyframes ponto-chegou {
+  from {
+    box-shadow: 0 0 0 0 oklch(0.8 0.12 150 / 0.7);
+  }
+  to {
+    box-shadow: 0 0 0 10px oklch(0.8 0.12 150 / 0);
+  }
+}
+
+.faixa-lobby__texto {
+  flex: 1;
+  font: 600 var(--fs-legenda) / 1.3 var(--fonte-titulo);
   color: var(--areia-300);
 }
 
-.hall-ano__vencedores {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--e-3);
+.faixa-lobby__pilula--completo .faixa-lobby__texto {
+  color: var(--ouro-300);
 }
 
-.hall-ano__vencedor {
-  display: inline-flex;
+/* "Enquanto espera…" (lobby e Início) */
+.chamada-hall {
+  width: 100%;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  font: 600 var(--fs-corpo) / 1.2 var(--fonte-titulo);
+  gap: var(--e-3);
+  padding: var(--e-3) var(--e-3) var(--e-3) var(--e-4);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--borda-ouro);
+  background: var(--vidro-lista);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--areia-50);
+  text-align: left;
+  font: inherit;
+  transition: transform var(--toque) var(--mola);
+}
+
+.chamada-hall:active {
+  transform: scale(0.98);
+}
+
+.chamada-hall__pin {
+  flex: none;
+  animation: pin-balanca 5s ease-in-out infinite;
+  transform-origin: 50% 0;
+}
+
+@keyframes pin-balanca {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+.chamada-hall__texto {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.chamada-hall__titulo {
+  font: 600 var(--fs-corpo) / 1.3 var(--fonte-titulo);
+}
+
+.chamada-hall__seta {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--noite-600);
+  color: var(--ouro-300);
 }
 
 /* ---------- Perfil ---------- */
